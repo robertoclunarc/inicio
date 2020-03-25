@@ -1,0 +1,21 @@
+export default interface solpeddetalleModelo {
+    idDetalleSolped? :number, 
+	codigo? :string, 
+	nombre? :string, 
+	descripcion? : string, 
+	unidadMedidaC? :any, 
+	cantidad? : number, 
+	nroActivo? : number, 
+	fechaAlta? : any, 
+	fechaRequerida? :any, 
+	justificacion? :string, 
+	IdComprasEmpresa? : number, 
+	idGenAreaNegocio? :number, 
+	idGenCentroCostos? :number, 
+	idSolpedCompras? :number, 
+	idAreaTrabajo? : number, 
+	cant_encontrada? : number, 
+	precio? : number, 
+	idProveedor? : number, 
+	notas? :string
+}

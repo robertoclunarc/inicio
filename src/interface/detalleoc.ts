@@ -1,0 +1,21 @@
+export default interface detalleOcModelo {
+    idOcDetalle? : number, 
+	codigo? : string, 
+	nombre? : string, 
+	descripcion? : string, 
+	unidadMedidaC? : string, 
+	cantidad? : string, 
+	idAdmActivo? : number, 
+	fechaAlta? : any, 
+	fechaRequerida? : any, 
+	justificacion? : string, 
+	IdComprasEmpresa? : number, 
+	idGenAreaNegocio? : number, 
+	idGenCentroCostos? : number, 
+	idComprasOC? : number, 
+	idAreaTrabajo? : number, 
+	cant_encontrada? : number, 
+	precio? : number, 
+	idProveedor? : number, 
+	notas? : string  
+}
