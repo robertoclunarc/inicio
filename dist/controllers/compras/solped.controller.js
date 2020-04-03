@@ -91,3 +91,10 @@ exports.solpedCambioFase = (req, resp) => __awaiter(void 0, void 0, void 0, func
     const solpeds = yield database_1.default.querySelect(consulta, [solped.idEstadoActual, solped.estadoActual, solped.idSolpedCompras]);
     return resp.status(201).json(solpeds);
 });
+exports.solpedPresidencia = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
+    const solped = req.body;
+    //const idSolped = req.params.idSolped;
+    let consulta = "SELECT * FROM compras_solped WHERE idEstadoActual = 8";
+    const solpeds = yield database_1.default.querySelect(consulta);
+    return resp.status(201).json(solpeds);
+});

@@ -95,3 +95,11 @@ export const solpedCambioFase = async (req: Request, resp: Response) => {
         [solped.idEstadoActual, solped.estadoActual, solped.idSolpedCompras]);
     return resp.status(201).json(solpeds);
 }
+
+export const solpedPresidencia = async (req: Request, resp: Response) => {
+    const solped : solpedModelo = req.body;
+    //const idSolped = req.params.idSolped;
+    let consulta = "SELECT * FROM compras_solped WHERE idEstadoActual = 8"; 
+    const solpeds = await db.querySelect(consulta);
+    return resp.status(201).json(solpeds);
+}

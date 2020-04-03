@@ -3,9 +3,11 @@ import {
     solpedAll, solpedNew, solpedOne, updateSolped, solpedMasterDetalle,
     solpedAsignacion,
     misSolped,
-    solpedCambioFase
+    solpedCambioFase, solpedPresidencia
 } from "../../controllers/compras/solped.controller";
-import { solpedetalledata } from "../../controllers/compras/solpeddetalle.controller";
+
+
+import { solpedetalledata, cambioEstado } from "../../controllers/compras/solpeddetalle.controller";
 import { trazassolped, inserttrazasolped } from "../../controllers/compras/solpedtraza.controller";
 import { insertOC, updateOC, todasOC, todasMasterDetalle } from "../../controllers/compras/ordencompra.controller";
 import { insertdetalleOC, detalleOcAll } from "../../controllers/compras/detalleoc.cotroller";
@@ -21,9 +23,11 @@ router.put("/api/solped/:idSolped", updateSolped);
 router.get("/api/solpedydetalles", solpedMasterDetalle);
 router.put("/api/asignacionsolped/:idSolped", solpedAsignacion);
 router.put("/api/cambiofasesolped", solpedCambioFase);
+router.put("/api/solspresidencia", solpedPresidencia);
 
 //Solped Detalles
 router.get("/api/detallesolped/:idSolped", solpedetalledata);
+router.put("/api/detallesolped/", cambioEstado);
 
 //Solped Trazas
 router.get("/api/trazassolped/:idSolped", trazassolped);

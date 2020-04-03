@@ -16,8 +16,10 @@ router.put("/api/solped/:idSolped", solped_controller_1.updateSolped);
 router.get("/api/solpedydetalles", solped_controller_1.solpedMasterDetalle);
 router.put("/api/asignacionsolped/:idSolped", solped_controller_1.solpedAsignacion);
 router.put("/api/cambiofasesolped", solped_controller_1.solpedCambioFase);
+router.put("/api/solspresidencia", solped_controller_1.solpedPresidencia);
 //Solped Detalles
 router.get("/api/detallesolped/:idSolped", solpeddetalle_controller_1.solpedetalledata);
+router.put("/api/detallesolped/", solpeddetalle_controller_1.cambioEstado);
 //Solped Trazas
 router.get("/api/trazassolped/:idSolped", solpedtraza_controller_1.trazassolped);
 router.post("/api/trazassolped", solpedtraza_controller_1.inserttrazasolped);

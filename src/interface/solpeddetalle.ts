@@ -17,5 +17,6 @@ export default interface solpeddetalleModelo {
 	cant_encontrada? : number, 
 	precio? : number, 
 	idProveedor? : number, 
-	notas? :string
+	notas? :string,
+	cant_recibida? : number
 }
