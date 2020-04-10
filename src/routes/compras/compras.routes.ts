@@ -23,7 +23,7 @@ router.put("/api/solped/:idSolped", updateSolped);
 router.get("/api/solpedydetalles", solpedMasterDetalle);
 router.put("/api/asignacionsolped/:idSolped", solpedAsignacion);
 router.put("/api/cambiofasesolped", solpedCambioFase);
-router.put("/api/solspresidencia", solpedPresidencia);
+router.get("/api/solspresidencia", solpedPresidencia);
 
 //Solped Detalles
 router.get("/api/detallesolped/:idSolped", solpedetalledata);
