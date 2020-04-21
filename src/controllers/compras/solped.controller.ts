@@ -84,15 +84,15 @@ export const solpedAsignacion = async (req: Request, resp: Response) => {
     let consulta = "UPDATE compras_solped SET idEstadoActual = ?, estadoActual = ?, idSegUsuario = ? WHERE idSolpedCompras = ? "; 
     const solpeds = await db.querySelect(consulta,
         [solped.idEstadoActual, solped.estadoActual, solped.idSegUsuario, idSolped]);
-    return resp.status(201).json(solpeds);
+    return resp.status(201).json(solpeds); 
 }
 
 export const solpedCambioFase = async (req: Request, resp: Response) => {
     const solped : solpedModelo = req.body;
     //const idSolped = req.params.idSolped;
-    let consulta = "UPDATE compras_solped SET idEstadoActual = ?, estadoActual = ? WHERE idSolpedCompras = ? "; 
+    let consulta = "UPDATE compras_solped SET idEstadoActual = ?, estadoActual = ?, cant_diff_prove = ? WHERE idSolpedCompras = ? "; 
     const solpeds = await db.querySelect(consulta,
-        [solped.idEstadoActual, solped.estadoActual, solped.idSolpedCompras]);
+        [solped.idEstadoActual, solped.estadoActual, solped.cant_diff_prove, solped.idSolpedCompras]);
     return resp.status(201).json(solpeds);
 }
 

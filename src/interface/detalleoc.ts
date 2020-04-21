@@ -17,5 +17,7 @@ export default interface detalleOcModelo {
 	cant_encontrada? : number, 
 	precio? : number, 
 	idProveedor? : number, 
-	notas? : string  
+	notas? : string,
+	cant_recibido? : number, 
+	cant_conforme? : number
 }

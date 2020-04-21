@@ -87,8 +87,8 @@ exports.solpedAsignacion = (req, resp) => __awaiter(void 0, void 0, void 0, func
 exports.solpedCambioFase = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     const solped = req.body;
     //const idSolped = req.params.idSolped;
-    let consulta = "UPDATE compras_solped SET idEstadoActual = ?, estadoActual = ? WHERE idSolpedCompras = ? ";
-    const solpeds = yield database_1.default.querySelect(consulta, [solped.idEstadoActual, solped.estadoActual, solped.idSolpedCompras]);
+    let consulta = "UPDATE compras_solped SET idEstadoActual = ?, estadoActual = ?, cant_diff_prove = ? WHERE idSolpedCompras = ? ";
+    const solpeds = yield database_1.default.querySelect(consulta, [solped.idEstadoActual, solped.estadoActual, solped.cant_diff_prove, solped.idSolpedCompras]);
     return resp.status(201).json(solpeds);
 });
 exports.solpedPresidencia = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
