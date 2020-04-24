@@ -27,8 +27,14 @@ export const misSolped = async (req: Request, resp: Response) => {
 }
 export const solpedNew = async (req: Request, resp: Response) => {
     const newSolped: solpedModelo = req.body;
-    const solpeds = await db.querySelect("INSERT INTO compras_solped SET ? ", [newSolped]);
-    resp.json(solpeds);
+	try{
+		const solpeds = await db.querySelect("INSERT INTO compras_solped SET ? ", [newSolped]);
+		resp.status(201).json(solpeds);
+	} catch (err) {
+		resp.status(401).json({err: err});
+	}
+    //resp.json(solpeds); 
+	
 }
 
 export const solpedOne = async (req: Request, resp: Response) => {
@@ -45,8 +51,12 @@ export const solpedOne = async (req: Request, resp: Response) => {
 export const updateSolped = async (req: Request, resp: Response) => {
     const id = req.params.idSolped;
     const updateSolped: solpedModelo = req.body;
-    const result = await db.querySelect("UPDATE compras_solped SET ? WHERE idSolpedCompras = ? ", [updateSolped, id]);
-    resp.status(201).json(result);
+	try{
+		const result = await db.querySelect("UPDATE compras_solped SET ? WHERE idSolpedCompras = ? ", [updateSolped, id]);
+		resp.status(201).json(result);	
+	} catch (err) {
+		resp.status(401).json({err: err});
+	}
 }
 
 export const solpedMasterDetalle = async (req: Request, resp: Response) => {

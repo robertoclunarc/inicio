@@ -34,8 +34,14 @@ exports.misSolped = (req, resp) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.solpedNew = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     const newSolped = req.body;
-    const solpeds = yield database_1.default.querySelect("INSERT INTO compras_solped SET ? ", [newSolped]);
-    resp.json(solpeds);
+    try {
+        const solpeds = yield database_1.default.querySelect("INSERT INTO compras_solped SET ? ", [newSolped]);
+        resp.status(201).json(solpeds);
+    }
+    catch (err) {
+        resp.status(401).json({ err: err });
+    }
+    //resp.json(solpeds); 
 });
 exports.solpedOne = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.idSolped;
@@ -49,8 +55,13 @@ exports.solpedOne = (req, resp) => __awaiter(void 0, void 0, void 0, function* (
 exports.updateSolped = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.idSolped;
     const updateSolped = req.body;
-    const result = yield database_1.default.querySelect("UPDATE compras_solped SET ? WHERE idSolpedCompras = ? ", [updateSolped, id]);
-    resp.status(201).json(result);
+    try {
+        const result = yield database_1.default.querySelect("UPDATE compras_solped SET ? WHERE idSolpedCompras = ? ", [updateSolped, id]);
+        resp.status(201).json(result);
+    }
+    catch (err) {
+        resp.status(401).json({ err: err });
+    }
 });
 exports.solpedMasterDetalle = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     let consulta1 = "SELECT * "

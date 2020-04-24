@@ -16,7 +16,7 @@ const database_1 = __importDefault(require("../../database"));
 exports.todasOC = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     let consulta = "SELECT * FROM compras_oc";
     const ordenes = yield database_1.default.querySelect(consulta);
-    resp.status(401).json(ordenes);
+    resp.status(200).json(ordenes);
 });
 exports.todasMasterDetalle = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     let consulta = "SELECT * FROM compras_oc";
@@ -28,14 +28,14 @@ exports.todasMasterDetalle = (req, resp) => __awaiter(void 0, void 0, void 0, fu
         return arbol.push({ data: oc, children: detallesOC });
     })))
         .then((result) => {
-        resp.status(401).json(arbol);
+        resp.status(200).json(arbol);
     });
 });
 exports.insertOC = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     const newOC = req.body;
     let consulta = "INSERT INTO compras_oc SET ?";
     const result = yield database_1.default.querySelect(consulta, [newOC]);
-    resp.status(401).json(result);
+    resp.status(200).json(result);
 });
 exports.updateOC = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.idComprasOC;

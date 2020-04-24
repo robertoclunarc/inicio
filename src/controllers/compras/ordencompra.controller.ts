@@ -5,7 +5,7 @@ import ocModelo from "../../interface/ordencompra";
 export const todasOC = async (req: Request, resp: Response) => {
     let consulta = "SELECT * FROM compras_oc";
     const ordenes: ocModelo[] = await db.querySelect(consulta);
-    resp.status(401).json(ordenes);
+    resp.status(200).json(ordenes);
 }
 
 export const todasMasterDetalle = async (req: Request, resp: Response) => {
@@ -20,7 +20,7 @@ export const todasMasterDetalle = async (req: Request, resp: Response) => {
             return arbol.push({data: oc, children: detallesOC});
         }))
         .then((result) => {
-            resp.status(401).json(arbol);
+            resp.status(200).json(arbol);
         });
 
 }
@@ -29,7 +29,7 @@ export const insertOC = async (req: Request, resp: Response) => {
     const newOC: ocModelo = req.body;
     let consulta = "INSERT INTO compras_oc SET ?"
     const result = await db.querySelect(consulta, [newOC]);
-    resp.status(401).json(result);
+    resp.status(200).json(result);
 }
 
 export const updateOC = async (req: Request, resp: Response) => {
