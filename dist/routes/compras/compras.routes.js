@@ -11,6 +11,7 @@ const router = express_1.Router();
 router.get("/api/solped", solped_controller_1.solpedAll);
 router.get("/api/missolped/:idSegUsuario", solped_controller_1.misSolped);
 router.post("/api/solped", solped_controller_1.solpedNew);
+router.post("/api/notinueva", solped_controller_1.solpedNew);
 router.get("/api/solped/:idSolped", solped_controller_1.solpedOne);
 router.put("/api/solped/:idSolped", solped_controller_1.updateSolped);
 router.get("/api/solpedydetalles", solped_controller_1.solpedMasterDetalle);

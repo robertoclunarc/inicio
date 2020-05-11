@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import db from "../../database";
 import solpedModelo from "../../interface/solped";
+import noticaModelo from "../../interface/noticia";
 import solpeddetalleModelo from "../../interface/solpeddetalle";
 
 
@@ -26,10 +27,13 @@ export const misSolped = async (req: Request, resp: Response) => {
     resp.status(201).json(solpeds);
 }
 export const solpedNew = async (req: Request, resp: Response) => {
-    const newSolped: solpedModelo = req.body;
+    //const newSolped: solpedModelo = req.body;
+    const newSolped: noticaModelo = req.body;    
 	try{
-		const solpeds = await db.querySelect("INSERT INTO compras_solped SET ? ", [newSolped]);
-		resp.status(201).json(solpeds);
+		const result = await db.querySelect("INSERT INTO compras_solped SET ? ", [newSolped]);
+        //const result = await db.querySelect("INSERT INTO config_noticias SET ? ", [newSolped]);
+        //newSolped.idConfigNoticia = result.insertId;
+		resp.status(201).json(result);
 	} catch (err) {
 		resp.status(401).json({err: err});
 	}

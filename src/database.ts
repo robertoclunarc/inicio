@@ -4,8 +4,6 @@ class database {
 
     cnn: any;
 
-
-
     async conectarBD() {
         /*    this.cnn.connect((err) => {
                if (err) throw err;
@@ -15,10 +13,10 @@ class database {
         this.cnn = await mysql.createPool({
            // host: "10.1.1.32",
             connectionLimit : 2,
-            host: "localhost",
+            host: "localhost", //"10.10.0.7",
             user: "root",
             //password: "4c3r04dm1n",
-            password: "root",
+            password: "root", //"4c3r04dm1n",
             database: "intranet"
         }).getConnection();
     }

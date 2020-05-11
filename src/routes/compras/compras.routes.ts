@@ -18,6 +18,7 @@ const router = Router();
 router.get("/api/solped", solpedAll);
 router.get("/api/missolped/:idSegUsuario", misSolped);
 router.post("/api/solped", solpedNew);
+router.post("/api/notinueva", solpedNew);
 router.get("/api/solped/:idSolped", solpedOne);
 router.put("/api/solped/:idSolped", updateSolped);
 router.get("/api/solpedydetalles", solpedMasterDetalle);
