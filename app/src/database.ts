@@ -13,11 +13,10 @@ class database {
         this.cnn = await mysql.createPool({
            // host: "10.1.1.32",
             connectionLimit : 2,
-            host: "localhost", //"10.10.0.7",
-            user: "root",
-            //password: "4c3r04dm1n",
-            password: "root", //"4c3r04dm1n",
-            database: "intranet"
+            host:  process.env.MYSQL_SERVER || "localhost", //"10.10.0.7",
+            user: process.env.MYSQL_USER || "root",
+            password: process.env.MYSQL_PW || "root", //"4c3r04dm1n",
+            database: process.env.MYSQL_DB || "intranet"
         }).getConnection();
     }
 

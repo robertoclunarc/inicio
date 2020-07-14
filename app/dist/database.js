@@ -24,11 +24,10 @@ class database {
             this.cnn = yield promise_1.default.createPool({
                 // host: "10.1.1.32",
                 connectionLimit: 2,
-                host: "localhost",
-                user: "root",
-                //password: "4c3r04dm1n",
-                password: "root",
-                database: "intranet"
+                host: process.env.MYSQL_SERVER || "localhost",
+                user: process.env.MYSQL_USER || "root",
+                password: process.env.MYSQL_PW || "root",
+                database: process.env.MYSQL_DB || "intranet"
             }).getConnection();
         });
     }
