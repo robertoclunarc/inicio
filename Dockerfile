@@ -1,14 +1,18 @@
-#STAGE 0 COMPILE ON NODEJS
-FROM node:12 as node
+#STAGE 0 COMPILE TS ON NODEJS
+FROM node:12 as ts
 WORKDIR /app
 COPY ./app/ /app/
 RUN npm install
-ARG config=production
-RUN npm run build -- --prod --configuration=$config
+RUN npm run build 
+RUN ls -lah
+RUN npm start
 
-#STAGE 1 DEPLOY ON NGINX
-FROM tutum/nginx
-COPY --from=node /site /app
-COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
-COPY ./nginx-custom.conf /etc/nginx/sites-available/default
-COPY ./nginx-custom.conf /etc/nginx/sites-enabled/default
+#STAGE 1 DEPLOY ON NODE
+#FROM node:12 as node
+#WORKDIR /app
+#RUN mkdir dist
+#COPY --from=ts /dist/ /app/dist/
+#COPY ./app/package.json /app/package.json
+#COPY ./app/package-lock.json /app/package-lock.json
+#RUN npm install
+#RUN npm start
