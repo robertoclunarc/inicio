@@ -27,6 +27,8 @@ services:
             # si se necesita trabajar con la base de datos local solo cambiar el valor de la variable DEPLOYMENT, no borrarla
             - DEPLOYMENT=dev
             - PORT=8001
+        working_dir: /app
+        command: bash -c "npm start"
     
 networks:
     webnet:            
