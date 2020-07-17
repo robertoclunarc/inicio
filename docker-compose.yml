@@ -21,7 +21,7 @@ services:
         environment:
             - MYSQL_SERVER=45.181.250.100
             - MYSQL_PORT=3306
-            - MYSQL_DB=links
+            - MYSQL_DB=intranets
             - MYSQL_USER=root
             - MYSQL_PW=.4C3r04dm1n
             # si se necesita trabajar con la base de datos local solo cambiar el valor de la variable DEPLOYMENT, no borrarla
