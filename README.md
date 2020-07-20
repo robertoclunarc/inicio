@@ -10,11 +10,11 @@ npm run star
 
 #Solped master
 #obtiene todas las solped activas
-get("/api/solped", solpedAll); 
+get("/api/solped", solpedAll) 
 #solpeds asociadas al usuario
-get("/api/missolped/:idSegUsuario", misSolped);
+get("/api/missolped/:idSegUsuario", misSolped)
 #crear nueva solpe
-post("/api/solped", solpedNew);
+post("/api/solped", solpedNew)
 #crear nueva solped, solo los datos el maestro
 post("/api/notinueva", solpedNew);
 #obtener una sola solped
