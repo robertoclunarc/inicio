@@ -7,54 +7,54 @@ npm run build
 # correr
 npm run star
 
-#Solped master
-obtiene todas las solped activas
+# Solped master
+#obtiene todas las solped activas
 get("/api/solped", solpedAll) 
 
-#solpeds asociadas al usuario
+# solpeds asociadas al usuario
 get("/api/missolped/:idSegUsuario", misSolped)
-#crear nueva solpe
+# crear nueva solpe
 post("/api/solped", solpedNew)
-#crear nueva solped, solo los datos el maestro
+# crear nueva solped, solo los datos el maestro
 post("/api/notinueva", solpedNew);
-#obtener una sola solped
+# obtener una sola solped
 get("/api/solped/:idSolped", solpedOne);
-#actualizar una solped
+# actualizar una solped
 put("/api/solped/:idSolped", updateSolped);
-#data del mestro detalle de la solped
+# data del mestro detalle de la solped
 get("/api/solpedydetalles", solpedMasterDetalle);
-#asignar un usuario a una solped 
+# asignar un usuario a una solped 
 put("/api/asignacionsolped/:idSolped", solpedAsignacion);
-#cambiar de fase una solped
+# cambiar de fase una solped
 put("/api/cambiofasesolped", solpedCambioFase);
-#aprobacion de una solped a presidencia
+# aprobacion de una solped a presidencia
 get("/api/solspresidencia", solpedPresidencia);
 
 
-#Solped Detalles
-#datos del detalle
+# Solped Detalles
+# datos del detalle
 get("/api/detallesolped/:idSolped", solpedetalledata);
 #actualizar la data del detalle
 put("/api/detallesolped/", cambioEstado);
 
-#Solped Trazas
-#obtener la data de una traza segun una solped
+# Solped Trazas
+# obtener la data de una traza segun una solped
 get("/api/trazassolped/:idSolped", trazassolped);
-#insertar una nueva traza
+# insertar una nueva traza
 post("/api/trazassolped", inserttrazasolped);
 
 //Orden de compra
-#todas las ordenes de compra
+# todas las ordenes de compra
 get("/api/oc", todasOC);
-#insertar una nueva orden de compra - master
+# insertar una nueva orden de compra - master
 post("/api/oc", insertOC);
-#actualizar una OC - master
+# actualizar una OC - master
 put("/api/oc/:idComprasOC", updateOC);
-#obtener todas las ordenes de compra con su detalle
+# obtener todas las ordenes de compra con su detalle
 get("/api/ocmasterdetalle/", todasMasterDetalle);
 
-#Orden de compra detalle
-#datos del detalle de una OC
+# Orden de compra detalle
+# datos del detalle de una OC
 get("/api/ocdetalle", detalleOcAll);
-#ingresar el detalle de una OC
+# ingresar el detalle de una OC
 post("/api/ocdetalle", insertdetalleOC);
