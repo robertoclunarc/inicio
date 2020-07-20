@@ -7,10 +7,10 @@ npm run build
 # correr
 npm run star
 
-
 #Solped master
-#obtiene todas las solped activas
+obtiene todas las solped activas
 get("/api/solped", solpedAll) 
+
 #solpeds asociadas al usuario
 get("/api/missolped/:idSegUsuario", misSolped)
 #crear nueva solpe
