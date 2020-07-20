@@ -7,7 +7,8 @@ npm run build
 # correr
 npm run star
 
-##Solped master
+
+#Solped master
 #obtiene todas las solped activas
 get("/api/solped", solpedAll); 
 #solpeds asociadas al usuario
@@ -29,13 +30,14 @@ put("/api/cambiofasesolped", solpedCambioFase);
 #aprobacion de una solped a presidencia
 get("/api/solspresidencia", solpedPresidencia);
 
+
 #Solped Detalles
 #datos del detalle
 get("/api/detallesolped/:idSolped", solpedetalledata);
 #actualizar la data del detalle
 put("/api/detallesolped/", cambioEstado);
 
-//Solped Trazas
+#Solped Trazas
 #obtener la data de una traza segun una solped
 get("/api/trazassolped/:idSolped", trazassolped);
 #insertar una nueva traza
@@ -51,7 +53,7 @@ put("/api/oc/:idComprasOC", updateOC);
 #obtener todas las ordenes de compra con su detalle
 get("/api/ocmasterdetalle/", todasMasterDetalle);
 
-//Orden de compra detalle
+#Orden de compra detalle
 #datos del detalle de una OC
 get("/api/ocdetalle", detalleOcAll);
 #ingresar el detalle de una OC
