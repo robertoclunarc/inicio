@@ -1,4 +1,5 @@
 import mysql from "mysql2/promise";
+//const resultado2 = async () => { return data = await (await fetch(`https://api.github.com/users/ylanz`)).json()};
 
 class database {
 
@@ -11,11 +12,11 @@ class database {
            }); */
         //await this.cnn.query
         this.cnn = await mysql.createPool({
-           // host: "10.1.1.32",
-            connectionLimit : 2,
-            host:  process.env.MYSQL_SERVER || "localhost", //"10.10.0.7",
+            // host: "10.1.1.32",
+            connectionLimit: 2,
+            host: process.env.MYSQL_SERVER || "localhost",
             user: process.env.MYSQL_USER || "root",
-            password: process.env.MYSQL_PW || "root", //"4c3r04dm1n",
+            password: process.env.MYSQL_PW || ".4C3r04dm1n", //
             database: process.env.MYSQL_DB || "intranet"
         }).getConnection();
     }
@@ -29,10 +30,10 @@ class database {
     }
 
     async querySelect(sql: string, data?: any) {
-        
-        let result :any = null;
+
+        let result: any = null;
         if (!data) {
-             result = await this.cnn.query(sql);
+            result = await this.cnn.query(sql);
         } else {
             result = await this.cnn.query(sql, data);
         }
@@ -44,6 +45,7 @@ class database {
 
     async inuup() {
         // const 
+
     }
 
 

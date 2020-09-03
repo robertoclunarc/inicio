@@ -11,7 +11,7 @@ import { solpedetalledata, cambioEstado } from "../../controllers/compras/solped
 import { trazassolped, inserttrazasolped } from "../../controllers/compras/solpedtraza.controller";
 import { insertOC, updateOC, todasOC, todasMasterDetalle } from "../../controllers/compras/ordencompra.controller";
 import { insertdetalleOC, detalleOcAll } from "../../controllers/compras/detalleoc.cotroller";
-import { allproveedores, insertarProveedor } from "../../controllers/compras/proveedores.controller";
+import { allproveedores, insertarProveedor, todosAlmacenesArbol } from "../../controllers/compras/proveedores.controller";
 
 const router = Router();
 
@@ -47,5 +47,6 @@ router.post("/api/ocdetalle", insertdetalleOC);
 //proveedores
 router.get("/api/proveedores", allproveedores);
 router.post("/api/proveedores", insertarProveedor);
+router.get("/api/tree", todosAlmacenesArbol);
 
 export default router;

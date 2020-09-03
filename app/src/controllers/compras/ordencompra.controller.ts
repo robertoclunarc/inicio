@@ -13,16 +13,17 @@ export const todasMasterDetalle = async (req: Request, resp: Response) => {
     let arbol: any[] = [];
     const ordenes: ocModelo[] = await db.querySelect(consulta);
 
-    Promise.all(
-        ordenes.map(async (oc: ocModelo) => {
-            let consulta2 = "SELECT * FROM compras_oc_detalle WHERE idComprasOC = ?";
-            const detallesOC = await db.querySelect(consulta2, [oc.idComprasOC]);
-            return arbol.push({data: oc, children: detallesOC});
-        }))
-        .then((result) => {
-            resp.status(200).json(arbol);
-        });
-
+    let result = ordenes.map( async (oc: ocModelo) => {
+        let consulta2 = "SELECT * FROM compras_oc_detalle WHERE idComprasOC = ?";
+        const detallesOC = await db.querySelect(consulta2, [oc.idComprasOC]);
+        //console.log(detallesOC);
+        
+        return arbol.push({ data: oc, children: detallesOC });
+    });
+    
+    await Promise.all(result)
+    resp.status(200).json(arbol);
+ 
 }
 
 export const insertOC = async (req: Request, resp: Response) => {
