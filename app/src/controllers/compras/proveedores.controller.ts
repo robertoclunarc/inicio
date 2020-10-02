@@ -1,8 +1,8 @@
-import { DataNode, Almacen } from './../../interface/nodoTree';
+import { DataNode, Almacen, NodoTree } from './../../interface/nodoTree';
 import { Request, Response } from "express";
 import db from "../../database";
 import ProveedoresModelo from "../../interface/proveedores";
-import { NodoTree } from "../../interface/nodoTree";
+
 
 export const allproveedores = async (req: Request, resp: Response) => {
     let consulta = "SELECT * FROM compras_proveedores";
@@ -26,13 +26,13 @@ const buildTree = (nodo: NodoTree): NodoTree | undefined => {
 
 }
 
-var _makeTree = function (options) {
+/* var _makeTree = function (options) {
     var children, e, id, o, pid, temp, _i, _len, _ref;
     id = options.idAlmacenes || "idAlmacenes";
     pid = options.idPadre || "idPadre";
     children = options.children || "children";
     temp = {};
-    temp.data = {}; 
+    temp.data = {};
     o = [];
     _ref = options.data;
 
@@ -40,8 +40,8 @@ var _makeTree = function (options) {
         //e.data = _ref[_i];
         //
         e = {};
-        e.data = _ref[_i];       
-        
+        e.data = _ref[_i];
+
         //e[children] = [];
         temp.data[e.data[id]] = e.data;
         //console.log("identifica: ", temp);
@@ -50,7 +50,7 @@ var _makeTree = function (options) {
             e.children = [];
             console.log("inden: ", e.data[pid]);
             //temp.children = [];
-          
+
             //console.log("temp", temp);
 
             //temp[e.data[pid]].children = [];
@@ -63,7 +63,7 @@ var _makeTree = function (options) {
 };
 
 
-var _makeTreeO = function(options) {
+var _makeTreeO = function (options) {
     var children, e, id, o, pid, temp, _i, _len, _ref;
     id = options.idAlmacenes || "idAlmacenes";
     pid = options.idPadre || "idPadre";
@@ -72,26 +72,26 @@ var _makeTreeO = function(options) {
     o = [];
     _ref = options.data;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      e = _ref[_i];
-      //e[children] = [];
-      temp[e[id]] = e;
-      if (temp[e[pid]] != null) {
-        temp[e[pid]][children] = [];
-        temp[e[pid]][children].push(e);
-      } else {
-        o.push(e);
-      }
+        e = _ref[_i];
+        //e[children] = [];
+        temp[e[id]] = e;
+        if (temp[e[pid]] != null) {
+            temp[e[pid]][children] = [];
+            temp[e[pid]][children].push(e);
+        } else {
+            o.push(e);
+        }
     }
     return o;
-  };
+}; */
 
 
-const hijosNodos = async (dato: Almacen): Promise<undefined | NodoTree | NodoTree[]> => {
+const hijosNodos = async (dato: Almacen): Promise<undefined | NodoTree[]> => {
 
     let consulta = "SELECT * FROM almacenes WHERE idPadre = ?";
-    const datosbd: Almacen[] = await db.querySelect(consulta, [dato.idAlmacenes]);
+    const hijos: Almacen[] = await db.querySelect(consulta, [dato.idAlmacenes]);
 
-    /*    let datosbd: Almacen[] = [
+    /*    let hijos: Almacen[] = [
            { "idAlmacenes": 11, "nombre": "mtto", "descripcion": "mtto", "idPadre": 1 },
            { "idAlmacenes": 21, "nombre": "Proyecto", "descripcion": "proyecto", "idPadre": 2 }
        ]; */
@@ -99,61 +99,90 @@ const hijosNodos = async (dato: Almacen): Promise<undefined | NodoTree | NodoTre
     let nodo: NodoTree = {};
     let nodos: NodoTree[] = [];
 
-    if (datosbd.length == 0) {
-        nodo.data = dato;
-        return nodo;
+    if (hijos.length == 0) {
+        nodo.data = { ...dato };
+        return [nodo];
     }
 
-
-    datosbd.forEach((datos) => {
+    hijos.forEach(async (datos) => {
         nodo.data = datos;
+        nodos.push(nodo);
         //nodo.children?.push(<NodoTree>buildTree(nodo));
         nodo.children?.push(<NodoTree>hijosNodos(datos));
-        nodos.push(nodo);
-        //console.log("nodo", nodo);
-
         nodo = {}
-    })
+    });
 
+    //awiat 
     return nodos;
 
 };
 
-/* function promiseForEach(arr, cb) {
-    var i = 0;
 
-    var nextPromise = function () {
-        if (i >= arr.length) {
-            // Processing finished.
-            return;
-        }
 
-        // Process next function. Wrap in `Promise.resolve` in case
-        // the function does not return a promise
-        var newPromise = Promise.resolve(cb(arr[i], i));
-        i++;
-        // Chain to finish processing.
-        return newPromise.then(nextPromise);
-    };
+const hijoslimpios = (nodo: NodoTree) => {
 
-    // Kick off the chain.
-    return Promise.resolve().then(nextPromise);
-}; */
+}
+
+const resultLimpio = (arbol: NodoTree[]) => {
+    return arbol.map((dato) => {
+        !dato.children && delete (dato.children);
+        dato.children && resultLimpio(dato.children);
+        return dato
+    });
+}
+
+
+const childNodos = (nodo: Almacen, todos: Almacen[]) => {
+    const hijos = todos.filter((dato) => dato.idPadre == nodo.idAlmacenes);
+
+    let newNodo: NodoTree = {};
+    let nodos: NodoTree[] = [];
+
+    if (hijos.length == 0) {
+        return null;
+    }
+
+    hijos.forEach((hijo) => {
+        newNodo.data = hijo;
+        newNodo.children = <NodoTree[]>childNodos(hijo, todos);
+        nodos.push(newNodo);
+        newNodo = {};
+    });
+
+    return nodos;
+}
+
+/* let padresNodos: NodoTree[] = [];
+  padres.forEach((padre) => {
+      padresNodos.push({ data: padre })
+  }); */
+//(<NodoTree[]>todosBD.filter((nodo)=>nodo.idPadre == 0)).map((node)=>{data:node.data}); //
+
 
 export const todosAlmacenesArbol = async (req: Request, resp: Response) => {
 
-
-
     let consulta = "SELECT * FROM almacenes ORDER BY idPadre, idAlmacenes";
-    const padresDB: Almacen[] = await db.querySelect(consulta);
-    let newNodo: NodoTree = {};
-    let dataInicial: DataNode = { "data": [] };
+    const todosBD: Almacen[] = await db.querySelect(consulta);
 
-    //console.log(padresDB);
-    //console.log(_makeTree({ data: padresDB }));  
-    //let result = _makeTree({ data: padresDB });
-    return resp.status(201).json({ "data": _makeTreeO({ data: padresDB }) });
-    //return resp.status(201).json({ "data": [] });
+    const padres: Almacen[] = todosBD.filter((nodo) => nodo.idPadre == 0);
+    const ramasYhojas: Almacen[] = todosBD.filter((nodo) => nodo.idPadre != 0);
+
+
+
+    let resultado: DataNode = { "data": [] };
+    let newNodoTree: NodoTree = {};
+
+    padres.forEach((raiz) => {
+        newNodoTree.data = raiz;
+        newNodoTree.children = (<NodoTree[]>childNodos(raiz, ramasYhojas));
+        // newNodoTree.children?.push(<NodoTree>childNodos(raiz, ramasYhojas));
+        resultado.data?.push(newNodoTree);
+        newNodoTree = {};
+
+    })
+
+    return resp.status(201).json({ data: resultLimpio(<NodoTree[]>resultado.data) });
+    //return resp.status(201).json(resultado);
 
 
 }

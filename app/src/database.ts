@@ -1,16 +1,9 @@
 import mysql from "mysql2/promise";
-//const resultado2 = async () => { return data = await (await fetch(`https://api.github.com/users/ylanz`)).json()};
 
 class database {
-
     cnn: any;
 
     async conectarBD() {
-        /*    this.cnn.connect((err) => {
-               if (err) throw err;
-               console.log("Database is connected!");
-           }); */
-        //await this.cnn.query
         this.cnn = await mysql.createPool({
             // host: "10.1.1.32",
             connectionLimit: 2,
