@@ -184,5 +184,7 @@ export const todosAlmacenesArbol = async (req: Request, resp: Response) => {
     return resp.status(201).json({ data: resultLimpio(<NodoTree[]>resultado.data) });
     //return resp.status(201).json(resultado);
 
+    //copiando
+
 
 }
