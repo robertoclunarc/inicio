@@ -48,8 +48,10 @@ const childNodos = (nodo: Almacen, todos: Almacen[]) => {
 
 export const todosAlmacenesArbol = async (req: Request, resp: Response) => {
 
+    await db.conectarBD();
     let consulta = "SELECT * FROM almacenes ORDER BY idPadre, idAlmacenes";
     const todosBD: Almacen[] = await db.querySelect(consulta);
+    await db.desconectarDB();
 
     const padres: Almacen[] = todosBD.filter((nodo) => nodo.idPadre == 0);
     const ramasYhojas: Almacen[] = todosBD.filter((nodo) => nodo.idPadre != 0);
