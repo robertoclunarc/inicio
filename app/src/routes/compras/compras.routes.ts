@@ -47,6 +47,6 @@ router.post("/api/ocdetalle", insertdetalleOC);
 //proveedores
 router.get("/api/proveedores", allproveedores);
 router.post("/api/proveedores", insertarProveedor);
-router.get("/api/tree", todosAlmacenesArbol);
+//router.get("/api/tree", todosAlmacenesArbol);
 
 export default router;
