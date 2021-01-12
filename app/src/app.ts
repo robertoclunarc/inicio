@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import db from "./database";
 
 
 //rutas
@@ -32,13 +33,12 @@ app.use(cors());
 //})
 
 //rutas
+db.conectarBD();
 app.use(comprasRoutes);
-
+app.listen(app.get("port"));
+console.log("Server express on port:", app.get("port"));
 
 
 app.get("/", (req, resp) => {
-    resp.send("Server http ON!");
+  resp.send("Server http ON!");
 });
-
-app.listen(app.get("port"));
-console.log("Server express on port:", app.get("port"));
