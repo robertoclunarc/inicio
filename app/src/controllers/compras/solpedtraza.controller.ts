@@ -17,7 +17,7 @@ export const inserttrazasolped = async (req: Request, resp: Response) => {
         resp.status(201).json(result);
     } catch (error) {
         console.log(error);
-        resp.json({"Error" : error});
+        resp.json({"Error" : error}); 
     }
     
     

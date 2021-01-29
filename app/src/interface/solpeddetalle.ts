@@ -18,5 +18,7 @@ export default interface solpeddetalleModelo {
 	precio? : number, 
 	idProveedor? : number, 
 	notas? :string,
-	cant_recibida? : number
+	cant_recibida? : number,
+	tasa_iva?: number,
+	precio_iva?: number,
 }
