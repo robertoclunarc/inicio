@@ -19,7 +19,7 @@ services:
         networks:
             - webnet            
         environment:
-            - MYSQL_SERVER=45.181.250.100
+            - MYSQL_SERVER=10.10.0.7
             - MYSQL_PORT=3306
             - MYSQL_DB=intranets
             - MYSQL_USER=root
