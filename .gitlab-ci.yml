@@ -22,7 +22,7 @@ install_dependencies:
 containerization:
     stage: containerization # must match the stage name declared above
     script:
-        # Build the container image
+        # Build the container image   
         #- npm run build
         - docker build -t nodeback_compras .
         # Push the container image to the registry
