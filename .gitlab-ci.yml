@@ -1,0 +1,68 @@
+image: node:12
+
+stages:
+    - dependencias
+    - build
+    - containerization
+    - deploy
+    
+cache:
+    paths:
+        - node_modules/
+
+install_dependencies:
+    stage: dependencias
+    script:
+        - npm install
+       # - npm install -g typescript  
+    artifacts:
+        paths:
+            - node_modules/
+
+containerization:
+    stage: containerization # must match the stage name declared above
+    script:
+        # Build the container image   
+        #- npm run build
+        - docker build -t nodeback_compras .
+        # Push the container image to the registry
+        #- docker push my-registry/my-application
+        # Cleanup by removing the local image
+        #- docker image rm my-registry/my-application
+
+deploy_to_desarrollo:
+    stage: deploy
+    variables:
+        MYSQL_SERVER: $DESA_MYSQL_SERVER 
+        MYSQL_USER: $DESA_MYSQL_USER
+        MYSQL_PW: $DESA_MYSQL_PASS
+        MYSQL_DB: $DESA_MYSQL_DB
+        MYSQL_PORT: $DESA_MYSQL_PORT
+        APP_PORT: $APP_PORT
+    script: 
+        - docker-compose down 
+        - docker-compose up -d --build
+        - echo $DESA_MYSQL_SERVER 
+    only:
+        - desarrollo
+    tags: 
+        - desarrollo
+
+deploy_to_prod:
+    stage: deploy
+    variables:
+        MYSQL_SERVER: $PROD_MYSQL_SERVER 
+        MYSQL_USER: $DESA_MYSQL_USER
+        MYSQL_PW: $DESA_MYSQL_PASS
+        MYSQL_DB: $DESA_MYSQL_DB
+        MYSQL_PORT: $DESA_MYSQL_PORT
+        APP_PORT: $APP_PORT
+    script: 
+        - echo $PROD_MYSQL_SERVER 
+        - docker-compose down 
+        - docker-compose up -d --build
+    only:
+        - master
+    when: manual
+    tags: 
+        - master

@@ -15,18 +15,18 @@ services:
             #- ./site:/app
             #- ./nginx-custom.conf:/etc/nginx/conf.d/default.conf
         ports:   
-            - 8001:8001
+            - $APP_PORT:$APP_PORT
         networks:
             - webnet            
         environment:
-            - MYSQL_SERVER=45.181.250.100
-            - MYSQL_PORT=3306
-            - MYSQL_DB=intranets
-            - MYSQL_USER=root
-            - MYSQL_PW=.4C3r04dm1n
+            - MYSQL_SERVER=$MYSQL_SERVER
+            - MYSQL_PORT=$MYSQL_PORT
+            - MYSQL_DB=$MYSQL_DB
+            - MYSQL_USER=$MYSQL_USER
+            - MYSQL_PW=$MYSQL_PW
             # si se necesita trabajar con la base de datos local solo cambiar el valor de la variable DEPLOYMENT, no borrarla
             - DEPLOYMENT=dev
-            - PORT=8001
+            - APP_PORT=$APP_PORT
         working_dir: /app
         command: bash -c "npm start"
     

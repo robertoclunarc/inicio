@@ -10,5 +10,6 @@ export default interface solped {
 	idConfigGerencia? :number, 
 	idAdmActivo?: number,
 	idSegUsuario?: number,
-	cant_diff_prove? : number
+	cant_diff_prove? : number,
+	monto_total : number,
 }

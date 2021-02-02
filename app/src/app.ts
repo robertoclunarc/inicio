@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import db from "./database";
 
 
 //rutas
@@ -9,7 +10,7 @@ import comprasRoutes from "./routes/compras/compras.routes"
 
 //Inicialitizations 
 const app =  express();
-app.set("port", process.env.PORT || 3005);
+app.set("port", process.env.APP_PORT || 3005);
 const fetch = require("node-fetch");
 
 
@@ -32,13 +33,12 @@ app.use(cors());
 //})
 
 //rutas
+db.conectarBD();
 app.use(comprasRoutes);
-
+app.listen(app.get("port"));
+console.log("Server express on port:", app.get("port"));
 
 
 app.get("/", (req, resp) => {
-    resp.send("Server http ON!");
+  resp.send("Server http ON!");
 });
-
-app.listen(app.get("port"));
-console.log("Server express on port:", app.get("port"));
