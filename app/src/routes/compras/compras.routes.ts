@@ -46,8 +46,8 @@ router.post("/api/oc", insertOC);
 router.put("/api/oc/:idComprasOC", updateOC);
 router.get("/api/ocmasterdetalle/", todasMasterDetalle);
 router.get("/api/oc/:idComprasOC/detalles", detalleOneOC);
-router.get("/api/oc/:idComprasOC", getOneOC);
-
+router.get("/api/oc/:idComprasOC", getOneOC); 
+ 
 //Orden de compra detalle
 router.get("/api/ocdetalle", detalleOcAll);
 router.post("/api/ocdetalle", insertdetalleOC);
