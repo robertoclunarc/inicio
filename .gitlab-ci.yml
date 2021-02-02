@@ -22,7 +22,7 @@ install_dependencies:
 build:
     stage: build 
     script:
-        - docker build -t n_almacenes .
+        - docker build -t n_compras .
         #- docker image rm my-registry/my-application
 
 register_image:
@@ -30,10 +30,10 @@ register_image:
     variables:
         SHA : $CI_COMMIT_SHA
     script:
-        - docker tag n_almacenes $DOCKER_SERVER/n_almacenes:$SHA
-        - docker tag n_almacenes $DOCKER_SERVER/n_almacenes:latest
-        - docker push $DOCKER_SERVER/n_almacenes:$SHA
-        - docker push $DOCKER_SERVER/n_almacenes:latest
+        - docker tag n_compras $DOCKER_SERVER/n_compras:$SHA
+        - docker tag n_compras $DOCKER_SERVER/n_compras:latest
+        - docker push $DOCKER_SERVER/n_compras:$SHA
+        - docker push $DOCKER_SERVER/n_compras:latest
     only:
         - master
 
