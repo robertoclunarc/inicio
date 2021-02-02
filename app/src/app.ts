@@ -10,7 +10,7 @@ import comprasRoutes from "./routes/compras/compras.routes"
 
 //Inicialitizations 
 const app =  express();
-app.set("port", process.env.PORT || 3005);
+app.set("port", process.env.APP_PORT || 3005);
 const fetch = require("node-fetch");
 
 
