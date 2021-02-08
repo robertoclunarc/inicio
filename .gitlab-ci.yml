@@ -19,23 +19,16 @@ install_dependencies:
         paths:
             - node_modules/
 
-build:
-    stage: build 
+containerization:
+    stage: containerization # must match the stage name declared above
     script:
-        - docker build -t n_compras .
+        # Build the container image   
+        #- npm run build
+        - docker build -t nodeback_compras .
+        # Push the container image to the registry
+        #- docker push my-registry/my-application
+        # Cleanup by removing the local image
         #- docker image rm my-registry/my-application
-
-register_image:
-    stage: containerization
-    variables:
-        SHA : $CI_COMMIT_SHA
-    script:
-        - docker tag n_compras $DOCKER_SERVER/n_compras:$SHA
-        - docker tag n_compras $DOCKER_SERVER/n_compras:latest
-        - docker push $DOCKER_SERVER/n_compras:$SHA
-        - docker push $DOCKER_SERVER/n_compras:latest
-    only:
-        - master
 
 deploy_to_desarrollo:
     stage: deploy
