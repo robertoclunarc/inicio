@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import db from "../../database";
 import solpedModelo from "../../interface/solped";
-import noticaModelo from "../../interface/noticia";
+
 import solpeddetalleModelo from "../../interface/solpeddetalle";
 
 
@@ -125,6 +125,15 @@ export const solpedCambioFase = async (req: Request, resp: Response) => {
     const solpeds = await db.querySelect(consulta,
         [solped.idEstadoActual, solped.estadoActual, solped.idSolpedCompras]);
     return resp.status(201).json(solpeds);
+}
+
+export const solpedEmpresaAAfacturar = async (req: Request, resp: Response) => {
+    const solped : solpedModelo = req.body;
+
+    let consulta = "UPDATE compras_solped SET idEmpresa = ? WHERE idSolpedCompras = ? "; 
+    const solpeds = await db.querySelect(consulta,
+        [solped.idEmpresa, solped.idSolpedCompras]);
+    return resp.status(201).json(solpeds); 
 }
 
 //POSIBLE DESARROLLO 

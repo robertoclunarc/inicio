@@ -12,4 +12,5 @@ export default interface solped {
 	idSegUsuario?: number,
 	cant_diff_prove? : number,
 	monto_total : number,
+	idEmpresa? : number,
 }

@@ -3,7 +3,7 @@ import {
     solpedAll, solpedNew, solpedOne, updateSolped, solpedMasterDetalle,
     solpedAsignacion,
     misSolped,
-    solpedCambioFase, solpedPresidencia, solpedAllAprobadas, solpedDetalleOne, updateMontoTotal
+    solpedCambioFase, solpedPresidencia, solpedAllAprobadas, solpedDetalleOne, updateMontoTotal, solpedEmpresaAAfacturar
 } from "../../controllers/compras/solped.controller";
 
 
@@ -26,6 +26,7 @@ router.put("/api/solped/:idSolped", updateSolped);
 router.get("/api/solpedydetalles", solpedMasterDetalle);
 router.put("/api/asignacionsolped/:idSolped", solpedAsignacion);
 router.put("/api/cambiofasesolped", solpedCambioFase);
+router.put("/api/setempresafacturar", solpedEmpresaAAfacturar);
 router.put("/api/update-monto", updateMontoTotal);
 //router.put("/api/arevisionporpresi", todasMasterDetalle); //POSIBLE DESRAROLLO
 router.get("/api/solspresidencia", solpedPresidencia);
