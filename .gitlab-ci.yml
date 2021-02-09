@@ -19,6 +19,8 @@ install_dependencies:
         paths:
             - node_modules/
 
+
+# DESARROLLO CAMBIA
 containerization:
     stage: containerization # must match the stage name declared above
     script:
@@ -29,6 +31,7 @@ containerization:
         #- docker push my-registry/my-application
         # Cleanup by removing the local image
         #- docker image rm my-registry/my-application
+# -------------
 
 deploy_to_desarrollo:
     stage: deploy

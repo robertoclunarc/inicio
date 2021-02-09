@@ -4,7 +4,7 @@ import solpedtrazaModelo from "../../interface/solpedtraza";
 
 export const trazassolped = async (req : Request, resp: Response) => {
     const idsolped = req.params.idSolped;
-    let consulta = "SELECT * FROM compras_traza_solped WHERE idSolpedCompras = ?";
+    let consulta = "SELECT * FROM compras_traza_solped WHERE idSolpedCompras = ? ORDER BY fechaAlta DESC";
     const trazas : solpedtrazaModelo[] = await db.querySelect(consulta, [idsolped]);
     resp.status(201).json(trazas);
 }
