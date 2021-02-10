@@ -7,11 +7,13 @@ import solpeddetalleModelo from "../../interface/solpeddetalle";
 
 export const solpedAll = async (req: Request, resp: Response) => {
     const solpeds = await db.querySelect(`SELECT  sol.*,
-                                         (SELECT nombre FROM config_gerencias ger WHERE ger.idConfigGerencia = sol.idConfigGerencia) nombre_gerencia,
-                                         (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
-                                            WHERE u.idSegUsuario = sol.idSegUsuario) nombre_asignado
+                                                (SELECT nombre FROM config_gerencias ger WHERE ger.idConfigGerencia = sol.idConfigGerencia) nombre_gerencia,
+                                                (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
+                                                    WHERE u.idSegUsuario = sol.idSegUsuario) nombre_asignado,
+                                                (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = sol.idEmpresa) 
+                                                AS nombre_empresa_facturar
                                         FROM compras_solped sol
-                                         WHERE idEstadoActual >= 4 AND idEstadoActual <= 12`);
+                                            WHERE idEstadoActual >= 4 AND idEstadoActual <= 12`);
     resp.status(201).json(solpeds);
 }
 
@@ -19,7 +21,9 @@ export const solpedAllAprobadas = async (req: Request, resp: Response) => {
     const solpeds = await db.querySelect(`SELECT  sol.*,
                                          (SELECT nombre FROM config_gerencias ger WHERE ger.idConfigGerencia = sol.idConfigGerencia) nombre_gerencia,
                                          (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
-                                            WHERE u.idSegUsuario = sol.idSegUsuario) nombre_asignado
+                                            WHERE u.idSegUsuario = sol.idSegUsuario) nombre_asignado,
+                                            (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = sol.idEmpresa) 
+                                            AS nombre_empresa_facturar
                                         FROM compras_solped sol
                                          WHERE idEstadoActual = 13`);
     resp.status(201).json(solpeds);
@@ -31,7 +35,9 @@ export const misSolped = async (req: Request, resp: Response) => {
     const solpeds = await db.querySelect(`SELECT  sol.*,
                                          (SELECT nombre FROM config_gerencias ger WHERE ger.idConfigGerencia = sol.idConfigGerencia) nombre_gerencia,
                                          (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
-                                            WHERE u.idSegUsuario = sol.idSegUsuario) nombre_asignado
+                                            WHERE u.idSegUsuario = sol.idSegUsuario) nombre_asignado,
+                                            (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = sol.idEmpresa) 
+                                            AS nombre_empresa_facturar
                                         FROM compras_solped sol
                                          WHERE ((idEstadoActual >= 4 AND idEstadoActual < 9) OR idEstadoActual = 11 ) AND sol.idSegUsuario = ?`, [usuario]);
     resp.status(201).json(solpeds);
@@ -39,16 +45,16 @@ export const misSolped = async (req: Request, resp: Response) => {
 
 export const solpedNew = async (req: Request, resp: Response) => {
     const newSolped: solpedModelo = req.body;
-	try{
-		const result = await db.querySelect("INSERT INTO compras_solped SET ? ", [newSolped]);
+    try {
+        const result = await db.querySelect("INSERT INTO compras_solped SET ? ", [newSolped]);
         //const result = await db.querySelect("INSERT INTO config_noticias SET ? ", [newSolped]);
         //newSolped.idConfigNoticia = result.insertId;
-		resp.status(201).json(result);
-	} catch (err) {
-		resp.status(401).json({err: err});
-	}
+        resp.status(201).json(result);
+    } catch (err) {
+        resp.status(401).json({ err: err });
+    }
     //resp.json(solpeds); 
-	
+
 }
 
 export const solpedOne = async (req: Request, resp: Response) => {
@@ -56,7 +62,9 @@ export const solpedOne = async (req: Request, resp: Response) => {
     const solpeds = await db.querySelect(`SELECT sol.*,
                                         (SELECT nombre FROM config_gerencias ger WHERE ger.idConfigGerencia = sol.idConfigGerencia) nombre_gerencia,
                                         (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
-                                        WHERE u.idSegUsuario = sol.idSegUsuario) nombre_asignado
+                                        WHERE u.idSegUsuario = sol.idSegUsuario) nombre_asignado,
+                                        (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = sol.idEmpresa) 
+                                        AS nombre_empresa_facturar
                                         FROM compras_solped sol WHERE idSolpedCompras = ? `, [id]);
     resp.status(201).json(solpeds[0]);
 }
@@ -72,12 +80,12 @@ export const solpedDetalleOne = async (req: Request, resp: Response) => {
 export const updateSolped = async (req: Request, resp: Response) => {
     const id = req.params.idSolped;
     const updateSolped: solpedModelo = req.body;
-	try{
-		const result = await db.querySelect("UPDATE compras_solped SET ? WHERE idSolpedCompras = ? ", [updateSolped, id]);
-		resp.status(201).json(result);	
-	} catch (err) {
-		resp.status(401).json({err: err});
-	}
+    try {
+        const result = await db.querySelect("UPDATE compras_solped SET ? WHERE idSolpedCompras = ? ", [updateSolped, id]);
+        resp.status(201).json(result);
+    } catch (err) {
+        resp.status(401).json({ err: err });
+    }
 }
 
 export const solpedMasterDetalle = async (req: Request, resp: Response) => {
@@ -97,10 +105,10 @@ export const solpedMasterDetalle = async (req: Request, resp: Response) => {
                 .then((detalle: solpeddetalleModelo[]) => {
                     let nododet: any = {};
                     detalle.forEach((det) => {
-                        nododet = {...det};
+                        nododet = { ...det };
                         //nododet = Object.assign([{...det}, {children: []}]);
                     });
-                    arbol.push({ data: sol, children: [{ data: nododet, children : []}] });
+                    arbol.push({ data: sol, children: [{ data: nododet, children: [] }] });
                 });
         }))
         .then((result) => {
@@ -110,30 +118,30 @@ export const solpedMasterDetalle = async (req: Request, resp: Response) => {
 }
 
 export const solpedAsignacion = async (req: Request, resp: Response) => {
-    const solped : solpedModelo = req.body;
+    const solped: solpedModelo = req.body;
     const idSolped = req.params.idSolped;
-    let consulta = "UPDATE compras_solped SET idEstadoActual = ?, estadoActual = ?, idSegUsuario = ? WHERE idSolpedCompras = ? "; 
+    let consulta = "UPDATE compras_solped SET idEstadoActual = ?, estadoActual = ?, idSegUsuario = ? WHERE idSolpedCompras = ? ";
     const solpeds = await db.querySelect(consulta,
         [solped.idEstadoActual, solped.estadoActual, solped.idSegUsuario, idSolped]);
-    return resp.status(201).json(solpeds); 
+    return resp.status(201).json(solpeds);
 }
 
 export const solpedCambioFase = async (req: Request, resp: Response) => {
-    const solped : solpedModelo = req.body;
+    const solped: solpedModelo = req.body;
     //const idSolped = req.params.idSolped;
-    let consulta = "UPDATE compras_solped SET idEstadoActual = ?, estadoActual = ? WHERE idSolpedCompras = ? "; 
+    let consulta = "UPDATE compras_solped SET idEstadoActual = ?, estadoActual = ? WHERE idSolpedCompras = ? ";
     const solpeds = await db.querySelect(consulta,
         [solped.idEstadoActual, solped.estadoActual, solped.idSolpedCompras]);
     return resp.status(201).json(solpeds);
 }
 
 export const solpedEmpresaAAfacturar = async (req: Request, resp: Response) => {
-    const solped : solpedModelo = req.body;
+    const solped: solpedModelo = req.body;
 
-    let consulta = "UPDATE compras_solped SET idEmpresa = ? WHERE idSolpedCompras = ? "; 
+    let consulta = "UPDATE compras_solped SET idEmpresa = ? WHERE idSolpedCompras = ? ";
     const solpeds = await db.querySelect(consulta,
         [solped.idEmpresa, solped.idSolpedCompras]);
-    return resp.status(201).json(solpeds); 
+    return resp.status(201).json(solpeds);
 }
 
 //POSIBLE DESARROLLO 
@@ -147,18 +155,18 @@ export const solpedEmpresaAAfacturar = async (req: Request, resp: Response) => {
 } */
 
 export const updateMontoTotal = async (req: Request, resp: Response) => {
-    const solped : solpedModelo = req.body;
+    const solped: solpedModelo = req.body;
     //const idSolped = req.params.idSolped;
-    let consulta = "UPDATE compras_solped SET monto_total = ? WHERE idSolpedCompras = ? "; 
+    let consulta = "UPDATE compras_solped SET monto_total = ? WHERE idSolpedCompras = ? ";
     const solpeds = await db.querySelect(consulta,
         [solped.monto_total, solped.idSolpedCompras]);
     return resp.status(201).json(solpeds);
 }
 
 export const solpedPresidencia = async (req: Request, resp: Response) => {
-    const solped : solpedModelo = req.body;
+    const solped: solpedModelo = req.body;
     //const idSolped = req.params.idSolped;
-    let consulta = "SELECT * FROM compras_solped WHERE idEstadoActual = 12"; 
+    let consulta = "SELECT * FROM compras_solped WHERE idEstadoActual = 12";
     const solpeds = await db.querySelect(consulta);
     return resp.status(201).json(solpeds);
 }

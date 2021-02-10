@@ -5,7 +5,9 @@ import ocModelo from "../../interface/ordencompra";
 export const todasOC = async (req: Request, resp: Response) => {
     let consulta = `SELECT  oc.*,
                             (SELECT nombre FROM adm_activos activos WHERE activos.idAdmActivo = oc.idAdmActivo) AS nombre_activo,
-                            (SELECT nombre FROM compras_proveedores c WHERE c.idProveedor = oc.idProveedor) AS nombre_proveedor
+                            (SELECT nombre FROM compras_proveedores c WHERE c.idProveedor = oc.idProveedor) AS nombre_proveedor,
+                            (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = oc.idComprasEmpresa) 
+                            AS nombre_empresa_facturar
                      FROM compras_oc oc ORDER BY oc.idComprasOC DESC`;
     const ordenes: ocModelo[] = await db.querySelect(consulta);
     resp.status(200).json(ordenes);
@@ -25,7 +27,9 @@ export const getOneOC = async (req: Request, resp: Response) => {
     let consulta = `SELECT  oc.*,
                             (SELECT nombre FROM adm_activos activos WHERE activos.idAdmActivo = oc.idAdmActivo) AS nombre_activo,
                             (SELECT nombre FROM compras_proveedores c WHERE c.idProveedor = oc.idProveedor) AS nombre_proveedor,
-                            (SELECT c.primerNombre + ' ' + c.primerApellido FROM seg_usuarios c WHERE c.idSegUsuario = oc.idUsuarioAprobo) AS nombre_aprobo
+                            (SELECT c.primerNombre + ' ' + c.primerApellido FROM seg_usuarios c WHERE c.idSegUsuario = oc.idUsuarioAprobo) AS nombre_aprobo,
+                            (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = oc.idComprasEmpresa) 
+                            AS nombre_empresa_facturar
                     FROM compras_oc as oc WHERE idComprasOC = ?`;
     const ordenes: ocModelo[] = await db.querySelect(consulta, [id]);
     resp.status(200).json(ordenes[0]);
