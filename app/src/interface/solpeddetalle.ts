@@ -21,4 +21,5 @@ export default interface solpeddetalleModelo {
 	cant_recibida? : number,
 	tasa_iva?: number,
 	precio_iva?: number,
+	subtotal?: number,
 }

@@ -9,5 +9,8 @@ export default interface OrdenCompraModelo {
 	monto_total? : number, 
 	condiciones? :string, 
 	formas_envio? : string, 
-	idConfigGerencia? : number
+	idConfigGerencia? : number,
+	monto_total_usd? : number,
+	tasa_usd? : number,
+	fecha_tasa_usd? : any,
 }
