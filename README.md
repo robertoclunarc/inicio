@@ -15,6 +15,17 @@ get("/api/solped", solpedAll)
 get("/api/missolped/:idSegUsuario", misSolped)
 # crear nueva solpe
 post("/api/solped", solpedNew)
+	el retorno cuando se inserta satisfactoriamente es, ejemplo:
+		{
+			"fieldCount": 0,
+			"affectedRows": 1,
+			"insertId": 44,
+			"serverStatus": 2,
+			"warningCount": 0,
+			"message": "",
+			"protocol41": true,
+			"changedRows": 0
+		}
 # crear nueva solped, solo los datos el maestro
 post("/api/notinueva", solpedNew);
 # obtener una sola solped

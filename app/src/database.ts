@@ -64,6 +64,17 @@ class database {
             result = await this.cnn.query(sql, data);
         }
         return result;
+        // try {
+        //     if (!data) {
+        //         result = await this.cnn.query(sql);
+        //     } else {
+        //         result = await this.cnn.query(sql, data);
+        //     }
+        //     return result;
+        // } catch (error) {
+        //     console.log(error);
+        //     return error;
+        // }
     }
 
     async save(param: ParamsData) {
