@@ -22,4 +22,7 @@ export default interface solpeddetalleModelo {
 	tasa_iva?: number,
 	precio_iva?: number,
 	subtotal?: number,
+	precio_usd?: number,
+	estado?: any, //{ "proceso": 0, "aprobado": 1, "anulado": 2 }
+	precio_usd_sutotal? : number,
 }

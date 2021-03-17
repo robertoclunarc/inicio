@@ -26,7 +26,7 @@ export const solpedAllOc = async (req: Request, resp: Response) => {
                                             AS nombre_empresa_facturar
                                         FROM compras_solped sol
                                          WHERE idEstadoActual = 13`);
-    resp.status(201).json(solpeds); 
+    resp.status(201).json(solpeds);
 }
 
 
@@ -130,18 +130,30 @@ export const solpedCambioFase = async (req: Request, resp: Response) => {
     const solped: solpedModelo = req.body;
     //const idSolped = req.params.idSolped;
     let consulta = "UPDATE compras_solped SET idEstadoActual = ?, estadoActual = ? WHERE idSolpedCompras = ? ";
-    const solpeds = await db.querySelect(consulta,
-        [solped.idEstadoActual, solped.estadoActual, solped.idSolpedCompras]);
-    return resp.status(201).json(solpeds);
+    try {
+        const solpeds = await db.querySelect(consulta,
+            [solped.idEstadoActual, solped.estadoActual, solped.idSolpedCompras]);
+        return resp.status(201).json(solpeds);
+    } catch (error) {
+        console.log(error);
+        return resp.status(400).json(error);
+    }
+
+
 }
 
 export const aprobacionSolPed = async (req: Request, resp: Response) => {
     const solped: solpedModelo = req.body;
     //const idSolped = req.params.idSolped;
     let consulta = "UPDATE compras_solped SET fecha_aprobo_presi = ? WHERE idSolpedCompras = ? ";
-    const solpeds = await db.querySelect(consulta,
-        [solped.idEstadoActual, solped.estadoActual, solped.idSolpedCompras]);
-    return resp.status(201).json(solpeds);
+    try {
+        const solpeds = await db.querySelect(consulta,
+            [solped.idEstadoActual, solped.estadoActual, solped.idSolpedCompras]);
+        return resp.status(201).json(solpeds);
+    } catch (error) {
+        console.log(error);
+        return resp.status(400).json(error);
+    }
 }
 
 export const solpedEmpresaAAfacturar = async (req: Request, resp: Response) => {
@@ -167,9 +179,14 @@ export const updateMontoTotal = async (req: Request, resp: Response) => {
     const solped: solpedModelo = req.body;
     //const idSolped = req.params.idSolped;
     let consulta = "UPDATE compras_solped SET monto_total = ?, monto_total_usd = ?, tasa_usd = ?, fecha_tasa_usd = ? WHERE idSolpedCompras = ? ";
-    const solpeds = await db.querySelect(consulta,
-        [solped.monto_total, solped.monto_total_usd, solped.tasa_usd, solped.fecha_tasa_usd, solped.idSolpedCompras]);
-    return resp.status(201).json(solpeds);
+    try {
+        const solpeds = await db.querySelect(consulta,
+            [solped.monto_total, solped.monto_total_usd, solped.tasa_usd, solped.fecha_tasa_usd, solped.idSolpedCompras]);
+        return resp.status(201).json(solpeds);
+    } catch (error) {
+        console.log(error);
+        return resp.status(400).json(error);
+    }
 }
 
 export const solpedPresidencia = async (req: Request, resp: Response) => {

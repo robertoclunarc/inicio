@@ -20,8 +20,8 @@ class database {
     pass: string;
     database: string;
 
-    constructor(){
-        this.host = process.env.MYSQL_SERVER || "10.10.0.7";
+    constructor() {
+        this.host = process.env.MYSQL_SERVER || "localhost";
         this.pass = process.env.MYSQL_PW || ".4C3r04dm1n";
         this.user = process.env.MYSQL_USER || "root";
         this.database = process.env.MYSQL_DB || "intranet";
@@ -30,7 +30,7 @@ class database {
     async conectarBD() {
 
         this.cnn = await mysql.createPool({
-            host: process.env.MYSQL_SERVER || "localhost", 
+            host: process.env.MYSQL_SERVER || "localhost",
             user: process.env.MYSQL_USER || "root",
             password: process.env.MYSQL_PW || ".4C3r04dm1n",
             database: process.env.MYSQL_DB || "intranet",
@@ -64,6 +64,17 @@ class database {
             result = await this.cnn.query(sql, data);
         }
         return result;
+        // try {
+        //     if (!data) {
+        //         result = await this.cnn.query(sql);
+        //     } else {
+        //         result = await this.cnn.query(sql, data);
+        //     }
+        //     return result;
+        // } catch (error) {
+        //     console.log(error);
+        //     return error;
+        // }
     }
 
     async save(param: ParamsData) {

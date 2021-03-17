@@ -4,7 +4,7 @@ export default interface detalleOcModelo {
 	nombre? : string, 
 	descripcion? : string, 
 	unidadMedidaC? : string, 
-	cantidad? : string, 
+	cantidad? : number, 
 	idAdmActivo? : number, 
 	fechaAlta? : any, 
 	fechaRequerida? : any, 
@@ -16,8 +16,12 @@ export default interface detalleOcModelo {
 	idAreaTrabajo? : number, 
 	cant_encontrada? : number, 
 	precio? : number, 
+	tasa_iva? : number, 
+	subtotal? : number, 
 	idProveedor? : number, 
 	notas? : string,
 	cant_recibido? : number, 
-	cant_conforme? : number
+	cant_conforme? : number,
+	precio_usd? : number,
+	precio_usd_sutotal? : number,
 }
