@@ -11,10 +11,10 @@ import {
 
 import { solpedetalledata, cambioEstado, delDetallesSolped, insertDetalleSolped, updateGenerado, getTotalDetallesNoProcess } from "../../controllers/compras/solpeddetalle.controller";
 import { trazassolped, inserttrazasolped, inserttrazaOC } from "../../controllers/compras/solpedtraza.controller";
-import { insertOC, updateOC, todasOC, todasMasterDetalle, detalleOneOC, getOneOC, updateMontoTotalOrdenCompra } 
+import { insertOC, updateOC, todasOC, todasMasterDetalle, detalleOneOC, getOneOC, updateMontoTotalOrdenCompra, updateCorrelativo } 
         from "../../controllers/compras/ordencompra.controller";
 import { insertdetalleOC, detalleOcAll } from "../../controllers/compras/detalleoc.cotroller";
-import { allproveedores, insertarProveedor, todosAlmacenesArbol } from "../../controllers/compras/proveedores.controller";
+import { allproveedores, oneproveedor, todosAlmacenesArbol } from "../../controllers/compras/proveedores.controller";
 
 const router = Router();
 
@@ -55,6 +55,8 @@ router.get("/api/ocmasterdetalle/", todasMasterDetalle);
 router.get("/api/oc/:idComprasOC/detalles", detalleOneOC);
 router.get("/api/oc/:idComprasOC", getOneOC); 
 router.put("/api/oc/update-monto/:idComprasOC", updateMontoTotalOrdenCompra);
+router.put("/api/oc/update-correlativo/:idComprasOC", updateCorrelativo);
+
 //Orden de compra detalle
 router.get("/api/ocdetalle", detalleOcAll);
 router.post("/api/ocdetalle", insertdetalleOC);
@@ -64,7 +66,8 @@ router.post("/api/trazaoc", inserttrazaOC);
 
 //proveedores
 router.get("/api/proveedores", allproveedores);
-router.post("/api/proveedores", insertarProveedor);
+router.get("/api/proveedores/:idProvee", oneproveedor);
+// router.post("/api/proveedores", insertarProveedor);
 //router.get("/api/tree", todosAlmacenesArbol);
 
 export default router;

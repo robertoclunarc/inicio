@@ -10,12 +10,25 @@ export const allproveedores = async (req: Request, resp: Response) => {
     return resp.status(201).json(proveedores);
 }
 
-export const insertarProveedor = async (req: Request, resp: Response) => {
+export const oneproveedor = async (req: Request, resp: Response) => {
+    let id : string = req.params.idProvee;
+    let consulta = `SELECT * FROM compras_proveedores WHERE idProveedor = ${id}`;
+    try {
+        const proveedor: ProveedoresModelo = (await db.querySelect(consulta))[0];
+        return resp.status(201).json(proveedor);
+    } catch (error) {
+        console.log(error);
+        return resp.status(400).json(error);
+    }
+}
+
+//FIXME: Debe estar en el backend modulo de "PROVEEDORES"
+/* export const insertarProveedor = async (req: Request, resp: Response) => {
     let consulta = "INSERT INTO compras_proveedores SET ?";
     const proveedor = req.body;
     const result = await db.querySelect(consulta, [proveedor]);
     resp.status(201).json(result);
-}
+} */
 
 const resultLimpio = (arbol: NodoTree[]) => {
     return arbol.map((dato) => {

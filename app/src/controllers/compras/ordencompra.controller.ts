@@ -28,7 +28,7 @@ export const getOneOC = async (req: Request, resp: Response) => {
     let consulta = `SELECT  oc.*,
                             (SELECT nombre FROM adm_activos activos WHERE activos.idAdmActivo = oc.idAdmActivo) AS nombre_activo,
                             (SELECT nombre FROM compras_proveedores c WHERE c.idProveedor = oc.idProveedor) AS nombre_proveedor,
-                            (SELECT c.primerNombre + ' ' + c.primerApellido FROM seg_usuarios c WHERE c.idSegUsuario = oc.idUsuarioAprobo) AS nombre_aprobo,
+                            (SELECT CONCAT(CONCAT(c.primerNombre, ' '), c.primerApellido) FROM seg_usuarios c WHERE c.idSegUsuario = oc.idUsuarioAprobo) AS nombre_aprobo,
                             (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = oc.idComprasEmpresa) 
                             AS nombre_empresa_facturar
                     FROM compras_oc as oc WHERE idComprasOC = ?`;
@@ -83,6 +83,20 @@ export const updateMontoTotalOrdenCompra = async (req: Request, resp: Response) 
     try {
         const result = await db.querySelect(consulta,
             [ocUpdate.monto_total, ocUpdate.monto_total_usd, ocUpdate.tasa_usd, ocUpdate.fecha_tasa_usd, ocUpdate.idComprasOC]);
+        resp.status(201).json(result);
+    } catch (error) {
+        console.log(error);
+        return resp.status(400).json(error);
+    }
+}
+
+export const updateCorrelativo = async (req: Request, resp: Response) => {
+    const ocUpdate: ocModelo = req.body;
+    const id = req.params.idComprasOC;
+    let consulta = "UPDATE compras_oc SET correlativo = ? WHERE idComprasOC = ? ";
+    try {
+        const result = await db.querySelect(consulta,
+            [ocUpdate.correlativo, id]);
         resp.status(201).json(result);
     } catch (error) {
         console.log(error);
