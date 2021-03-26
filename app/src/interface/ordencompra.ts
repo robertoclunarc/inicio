@@ -17,4 +17,6 @@ export default interface OrdenCompraModelo {
 	fecha_tasa_usd?: any,
 	idEstado?: number,
 	estadoActual?: string,
+	justificacion? : string,
+	correlativo? : string,
 }
