@@ -19,6 +19,7 @@ install_dependencies:
         paths:
             - node_modules/
 
+
 # DESARROLLO CAMBIA
 containerization:
     stage: containerization # must match the stage name declared above
