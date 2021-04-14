@@ -31,6 +31,7 @@ export const cambioEstado = async (req: Request, resp: Response) => {
     const result = await db.querySelect(consulta, [detalle.cant_encontrada, detalle.precio,
     detalle.idProveedor, detalle.notas, detalle.tasa_iva, detalle.precio_iva, detalle.estado, detalle.idSolpedCompras, detalle.codigo, detalle.idDetalleSolped]);
     resp.status(201).json(result);
+    
 }
 
 export const updateDetalle = async (req: Request, resp: Response) => {
