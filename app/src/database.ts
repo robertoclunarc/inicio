@@ -20,13 +20,8 @@ class database {
     pass: string;
     database: string;
 
-<<<<<<< HEAD
     constructor(){
         this.host = process.env.MYSQL_SERVER || "10.10.0.2";
-=======
-    constructor() {
-        this.host = process.env.MYSQL_SERVER || `localhost`; //"localhost";
->>>>>>> desarrollo
         this.pass = process.env.MYSQL_PW || ".4C3r04dm1n";
         this.user = process.env.MYSQL_USER || "root";
         this.database = process.env.MYSQL_DB || "intranet";
@@ -35,11 +30,7 @@ class database {
     async conectarBD() {
 
         this.cnn = await mysql.createPool({
-<<<<<<< HEAD
             host: process.env.MYSQL_SERVER || "10.10.0.2", //
-=======
-            host: process.env.MYSQL_SERVER || `localhost`, //"localhost",
->>>>>>> desarrollo
             user: process.env.MYSQL_USER || "root",
             password: process.env.MYSQL_PW || ".4C3r04dm1n",
             database: process.env.MYSQL_DB || "intranet",
