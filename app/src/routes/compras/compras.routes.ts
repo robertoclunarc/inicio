@@ -9,9 +9,10 @@ import {
 } from "../../controllers/compras/solped.controller";
 
 
-import { solpedetalledata, cambioEstado, delDetallesSolped, insertDetalleSolped, updateGenerado, getTotalDetallesNoProcess } from "../../controllers/compras/solpeddetalle.controller";
+import { solpedetalledata, cambioEstado, delDetallesSolped, insertDetalleSolped, updateGenerado, getTotalDetallesNoProcess, updateDetalle } 
+    from "../../controllers/compras/solpeddetalle.controller";
 import { trazassolped, inserttrazasolped, inserttrazaOC } from "../../controllers/compras/solpedtraza.controller";
-import { insertOC, updateOC, todasOC, todasMasterDetalle, detalleOneOC, getOneOC, updateMontoTotalOrdenCompra, updateCorrelativo } 
+import { insertOC, updateOC, todasOC, todasMasterDetalle, detalleOneOC, getOneOC, updateMontoTotalOrdenCompra, updateCorrelativo, generarOcPDF } 
         from "../../controllers/compras/ordencompra.controller";
 import { insertdetalleOC, detalleOcAll } from "../../controllers/compras/detalleoc.cotroller";
 import { allproveedores, oneproveedor, todosAlmacenesArbol } from "../../controllers/compras/proveedores.controller";
@@ -22,10 +23,10 @@ router.get("/api/solped", solpedAll);
 router.get("/api/solped-aprobadas", solpedAllOc);
 router.get("/api/missolped/:idSegUsuario", misSolped);
 router.post("/api/solped", solpedNew);
-router.post("/api/notinueva", solpedNew);
+router.put("/api/solped/:idSolped", updateSolped);
+// router.post("/api/notinueva", solpedNew);
 router.get("/api/solped/:idSolped", solpedOne);
 router.get("/api/solped/:idSolped/detalles", solpedDetalleOne);
-router.put("/api/solped/:idSolped", updateSolped);
 router.get("/api/solpedydetalles", solpedMasterDetalle);
 router.put("/api/asignacionsolped/:idSolped", solpedAsignacion);
 router.put("/api/cambiofasesolped", solpedCambioFase);
@@ -40,6 +41,7 @@ router.get("/api/detallesolped/:idSolped", solpedetalledata);
 router.get("/api/total-det-noprocess/:idSolped", getTotalDetallesNoProcess);
 router.post("/api/detallesolped/", insertDetalleSolped);
 router.put("/api/detallesolped/", cambioEstado);
+router.put("/api/detallesolped/:idDetalle", updateDetalle);
 router.delete("/api/detallessolped/:idSolped", delDetallesSolped);
 router.put("/api/updatesolpedgen", updateGenerado);
 
@@ -56,13 +58,16 @@ router.get("/api/oc/:idComprasOC/detalles", detalleOneOC);
 router.get("/api/oc/:idComprasOC", getOneOC); 
 router.put("/api/oc/update-monto/:idComprasOC", updateMontoTotalOrdenCompra);
 router.put("/api/oc/update-correlativo/:idComprasOC", updateCorrelativo);
+router.post("/api/oc/generar-oc/:idComprasOC", generarOcPDF);
 
 //Orden de compra detalle
 router.get("/api/ocdetalle", detalleOcAll);
-router.post("/api/ocdetalle", insertdetalleOC);
+router.post("/api/ocdetalle", insertdetalleOC); 
 router.put("/api/ocdetalle/update-por-tasa/:idDetalleOC", updatePorCambioTasa);
 //TrazasOC FIXME:Debe ser su propio controller, pero para mas rapidez, refactorizar 
 router.post("/api/trazaoc", inserttrazaOC); 
+
+
 
 //proveedores
 router.get("/api/proveedores", allproveedores);

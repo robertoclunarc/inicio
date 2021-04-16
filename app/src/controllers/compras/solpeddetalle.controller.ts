@@ -11,7 +11,7 @@ export const solpedetalledata = async (req: Request, resp: Response) => {
                     (SELECT nombre FROM compras_proveedores c WHERE c.idProveedor = det.idProveedor) AS nombre_proveedor
                     FROM compras_detalle_solped det WHERE det.idSolpedCompras = ?
                     AND det.estado = 0
-                    ORDER BY det.idProveedor, det.codigo, det.nroActivo`; 
+                    ORDER BY det.idProveedor, det.codigo, det.nroActivo`;
     const detalles: solpedDetalleModelo[] = await db.querySelect(consulta, [idSolped]);
     resp.status(201).json(detalles);
 }
@@ -31,6 +31,21 @@ export const cambioEstado = async (req: Request, resp: Response) => {
     const result = await db.querySelect(consulta, [detalle.cant_encontrada, detalle.precio,
     detalle.idProveedor, detalle.notas, detalle.tasa_iva, detalle.precio_iva, detalle.estado, detalle.idSolpedCompras, detalle.codigo, detalle.idDetalleSolped]);
     resp.status(201).json(result);
+    
+}
+
+export const updateDetalle = async (req: Request, resp: Response) => {
+    const idDetalleSolped: number = +req.params.idDetalle;
+    const data: solpedDetalleModelo = req.body;
+    let consulta = `UPDATE compras_detalle_solped SET ?
+                    WHERE idSolpedCompras = ? and codigo = ? and idDetalleSolped = ?`;
+    try {
+        const result = await db.querySelect(consulta, [data, data.idSolpedCompras, data.codigo, idDetalleSolped]);
+        return resp.status(200).json(result);
+    } catch (error) {
+        console.log(error);
+        return resp.status(201).json(error);
+    }
 }
 
 export const getTotalDetallesNoProcess = async (req: Request, resp: Response) => {
@@ -61,21 +76,21 @@ export const insertDetalleSolped = async (req: Request, resp: Response) => {
         resp.status(201).json(result);
     } catch (err) {
         console.log(err);
-        resp.status(400).json({ err: err }); 
+        resp.status(400).json({ err: err });
     }
 }
 
 
 
 
-export const updateGenerado = async(req: Request, resp: Response) => {
-    const detSolped : solpedDetalleModelo = req.body;
+export const updateGenerado = async (req: Request, resp: Response) => {
+    const detSolped: solpedDetalleModelo = req.body;
     let consulta = "UPDATE compras_detalle_solped SET generado = 1 WHERE idDetalleSolped = ?";
     try {
         const result = await db.querySelect(consulta, [detSolped.idDetalleSolped]);
         resp.status(200).json(result);
     } catch (error) {
         console.log(error);
-        resp.status(400).json({error});
+        resp.status(400).json({ error });
     }
 }

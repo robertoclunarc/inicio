@@ -17,4 +17,6 @@ export default interface solped {
 	tasa_usd?: number,
 	fecha_tasa_usd?: any,
 	fecha_aprobo_presi?: any,
+	formas_envio?: string,
+	condiciones?: string,
 }
