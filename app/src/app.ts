@@ -16,12 +16,6 @@ app.use(morgan("dev"));
 //app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-// FIXME: Colocar expresamente el origen
-// app.use(cors({
-//   origin: "http://localhost:4200",
-//   credentials: true
-// }));
-
 app.use(cors({
   origin: ["http://localhost:4200", 'http://10.10.0.16'],
   credentials: true
