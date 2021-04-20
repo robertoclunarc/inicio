@@ -11,14 +11,13 @@ const app = express();
 app.set("port", process.env.APP_PORT || 3005);
 // ************
 
-//middleeares
+//middlewares
 app.use(morgan("dev"));
 //app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-// FIXME: Colocar expresamente el origen
 app.use(cors({
-  origin: "http://localhost:4200",
+  origin: ["http://localhost:4200", 'http://10.10.0.16'],
   credentials: true
 }));
 
