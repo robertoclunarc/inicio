@@ -17,7 +17,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use(cors({
-  origin: ["http://localhost:4200", 'http://10.10.0.16'],
+  origin: ["http://localhost:4200", 'http://10.10.0.16', 'http://localhost'],
   credentials: true
 }));
 
