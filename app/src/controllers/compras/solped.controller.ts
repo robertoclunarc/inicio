@@ -160,9 +160,13 @@ export const solpedEmpresaAAfacturar = async (req: Request, resp: Response) => {
     const solped: solpedModelo = req.body;
 
     let consulta = "UPDATE compras_solped SET idEmpresa = ? WHERE idSolpedCompras = ? ";
-    const solpeds = await db.querySelect(consulta,
-        [solped.idEmpresa, solped.idSolpedCompras]);
-    return resp.status(201).json(solpeds);
+    try {
+        const solpeds = await db.querySelect(consulta, [solped.idEmpresa, solped.idSolpedCompras]);
+        return resp.status(201).json(solpeds);
+    } catch (error) {
+        console.error(error);
+        return resp.status(401).json(error);
+    }
 }
 
 //POSIBLE DESARROLLO 

@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import db from "./database";
-import { join } from "path";
+// import { join } from "path";
 import comprasRoutes from "./routes/compras/compras.routes"
 
 
@@ -21,7 +21,7 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(`/public`, express.static(join(__dirname, 'public')));
+// app.use(`/public`, express.static(join(__dirname, 'public')));
 // ************
 
 //rutas 
