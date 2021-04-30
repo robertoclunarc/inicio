@@ -8,14 +8,14 @@ npm run build
 npm run star
 
 # Variables de Entorno
-APP_PORT -> puerto para la aplicación
-DESA_MYSQL_DB -> nombre de la bd mysql para la aplicación
-DESA_MYSQL_USER -> nombre de usuario de mysql para la aplicación
-DESA_MYSQL_PASS -> password de la bd mysql para la aplicación
-DESA_MYSQL_PORT -> puerto a conectarse al mysql para la aplicación
-DESA_MYSQL_SERVER -> IP del servidor mysql para la aplicación
-DOCKER_SERVER -> nombre del docker a apuntar 
-PROD_MYSQL_SERVER -> IP del servidor de mysql de PRODUCCION  
+APP_PORT -> puerto para la aplicación  
+DESA_MYSQL_DB -> nombre de la bd mysql para la aplicación  
+DESA_MYSQL_USER -> nombre de usuario de mysql para la aplicación  
+DESA_MYSQL_PASS -> password de la bd mysql para la aplicación  
+DESA_MYSQL_PORT -> puerto a conectarse al mysql para la aplicación  
+DESA_MYSQL_SERVER -> IP del servidor mysql para la aplicación  
+DOCKER_SERVER -> nombre del docker a apuntar   
+PROD_MYSQL_SERVER -> IP del servidor de mysql de PRODUCCION     
 
 # Solped master
 #obtiene todas las solped activas
