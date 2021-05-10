@@ -47,8 +47,6 @@ export const solpedNew = async (req: Request, resp: Response) => {
     const newSolped: solpedModelo = req.body;
     try {
         const result = await db.querySelect("INSERT INTO compras_solped SET ? ", [newSolped]);
-        //const result = await db.querySelect("INSERT INTO config_noticias SET ? ", [newSolped]);
-        //newSolped.idConfigNoticia = result.insertId;
         resp.status(201).json(result);
     } catch (err) {
         resp.status(401).json({ err: err });
