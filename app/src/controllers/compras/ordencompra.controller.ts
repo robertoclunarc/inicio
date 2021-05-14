@@ -16,7 +16,6 @@ export const todasOC = async (req: Request, resp: Response) => {
     resp.status(200).json(ordenes);
 }
 
-
 export const detalleOneOC = async (req: Request, resp: Response) => {
     const id = req.params.idComprasOC;
     let consulta = "SELECT * FROM compras_oc_detalle WHERE idComprasOC = ?";

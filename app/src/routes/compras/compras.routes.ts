@@ -67,8 +67,6 @@ router.put("/api/ocdetalle/update-por-tasa/:idDetalleOC", updatePorCambioTasa);
 //TrazasOC FIXME:Debe ser su propio controller, pero para mas rapidez, refactorizar 
 router.post("/api/trazaoc", inserttrazaOC); 
 
-
-
 //proveedores
 router.get("/api/proveedores", allproveedores);
 router.get("/api/proveedores/:idProvee", oneproveedor);

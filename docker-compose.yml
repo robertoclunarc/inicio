@@ -3,17 +3,11 @@ version: "3.3"
 
 services:
     node-compras:
-        #Contenedor del Frontend de la aplicación, NO ejecuta código de backend
         build: 
             context: .
-            #args: 
-                #- config=transven
-        container_name: node_compras
+        
+        container_name: node-compras
         restart: always
-        #volumes:
-            # Los archivos del front deben copiarse en la carpeta /frontend
-            #- ./site:/app
-            #- ./nginx-custom.conf:/etc/nginx/conf.d/default.conf
         ports:   
             - $APP_PORT:$APP_PORT
         networks:

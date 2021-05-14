@@ -3,16 +3,28 @@ import morgan from "morgan"; //trazas de consolas en las peticiones
 import cors from "cors";
 import db from "./database";
 import { join } from "path";
+import * as dotenv from 'dotenv';
+
+// dotenv.config({ path: __dirname+'/.env' });
+// dotenv.config({path: join(__dirname, '.env')});
+dotenv.config();
+console.log(join(__dirname, '.env'));
+
+//routes
 import comprasRoutes from "./routes/compras/compras.routes"
 
 
 //Inicialitizations 
 const app = express();
-app.set("port", process.env.APP_PORT || 3005);
+app.set("port", process.env.APP_PORT);
 // ************
 
 //middlewares
 app.use(morgan("dev"));
+<<<<<<< HEAD
+=======
+
+>>>>>>> desarrollo
 app.use(express.json());
 
 app.use(cors({
@@ -20,8 +32,6 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(`/public`, express.static(join(__dirname, 'public')));
-// ************
 
 //rutas 
 app.use(comprasRoutes);
