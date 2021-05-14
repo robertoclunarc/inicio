@@ -6,8 +6,8 @@ import { join } from "path";
 import * as dotenv from 'dotenv';
 
 // dotenv.config({ path: __dirname+'/.env' });
-dotenv.config({path: join(__dirname, '.env')});
-// dotenv.config();
+// dotenv.config({path: join(__dirname, '.env')});
+dotenv.config();
 console.log(join(__dirname, '.env'));
 
 //routes
