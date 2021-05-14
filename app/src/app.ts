@@ -1,5 +1,5 @@
 import express from "express";
-import morgan from "morgan";
+import morgan from "morgan"; //trazas de consolas en las peticiones
 import cors from "cors";
 import db from "./database";
 import { join } from "path";
@@ -21,7 +21,6 @@ app.set("port", process.env.APP_PORT);
 
 //middlewares
 app.use(morgan("dev"));
-
 app.use(express.json());
 
 app.use(cors({
