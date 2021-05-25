@@ -25,8 +25,8 @@ const wl = process.env.WHITE_LIST?.split(",");
 // console.log("Whitelist: ", wl);
 
 app.use(cors({
-	// origin: ["http://localhost:4200", 'http://10.10.0.16', 'http://localhost'],
-	origin: wl,
+	origin: ["http://localhost:4200", 'http://10.10.0.16',  'http://10.10.0.7', 'http://localhost'],
+	//origin: wl,
 	credentials: true
 }));
 
