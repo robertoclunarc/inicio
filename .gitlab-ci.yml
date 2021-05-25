@@ -14,7 +14,6 @@ install_dependencies:
     stage: dependencias
     script:
         - npm install
-       # - npm install -g typescript  
     artifacts:
         paths:
             - node_modules/
@@ -25,7 +24,6 @@ containerization:
     stage: containerization # must match the stage name declared above
     script:
         # Build the container image   
-        #- npm run build
         - docker build -t nodeback_compras .
         # Push the container image to the registry
         #- docker push my-registry/my-application
@@ -43,6 +41,7 @@ deploy_to_desarrollo:
         MYSQL_PORT: $DESA_MYSQL_PORT
         APP_PORT: $APP_PORT
     script: 
+        - printenv
         - docker-compose down 
         - docker-compose up -d --build
         - echo $DESA_MYSQL_SERVER 
