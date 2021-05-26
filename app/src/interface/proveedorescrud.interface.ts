@@ -8,5 +8,6 @@ export interface IProveedores {
     telefono?: string; 
     contacto: string;
     formas_envio?: string;
-    condiciones?: string; 
+    condiciones?: string;
+    estatus? : number; 
 }
