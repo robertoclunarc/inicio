@@ -10,4 +10,5 @@ export interface IProveedores {
     formas_envio?: string;
     condiciones?: string;
     estatus? : number; 
+    email? : string; 
 }

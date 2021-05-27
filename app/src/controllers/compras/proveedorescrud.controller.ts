@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import db from "../../database";
 import { IProveedores } from "../../interface/proveedorescrud.interface"
 
-export const SelectRecordAll = async (req: Request, resp: Response) => {
-    let consulta = "Select * FROM compras_proveedores where estatus=1";
+export const selectRecordAll = async (req: Request, resp: Response) => {
+    let consulta = "SELECT * FROM compras_proveedores where estatus=1";
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
@@ -17,8 +17,8 @@ export const SelectRecordAll = async (req: Request, resp: Response) => {
     }
 }
 
-export const SelectRecordFilter = async (req: Request, resp: Response) => {
-    let consulta = "Select * FROM compras_proveedores";
+export const selectRecordFilter = async (req: Request, resp: Response) => {
+    let consulta = "SELECT * FROM compras_proveedores WHERE 1 = 1";
     let prov = {
         idproveedor: req.params.Id,
         nombre: req.params.nombre,
@@ -69,11 +69,11 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
     }
 
     where.forEach(function (where, index) {
-        if (index == 0) {
-            consulta = consulta + " WHERE " + where;
-        } else {
-            consulta = consulta + " OR " + where;
-        }
+        // if (index == 0) {
+        //     consulta = consulta + " WHERE " + where;
+        // } else {
+        consulta = consulta + " OR " + where;
+        // }
 
     });
     // console.log(consulta);

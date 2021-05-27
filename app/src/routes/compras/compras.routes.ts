@@ -16,7 +16,7 @@ import { insertOC, updateOC, todasOC, todasMasterDetalle, detalleOneOC, getOneOC
         from "../../controllers/compras/ordencompra.controller";
 import { insertdetalleOC, detalleOcAll } from "../../controllers/compras/detalleoc.cotroller";
 import { allproveedores, oneproveedor, todosAlmacenesArbol } from "../../controllers/compras/proveedores.controller";
-import { createRecord, deleteRecord, SelectRecordAll, SelectRecordFilter, updateRecord } from '../../controllers/compras/proveedorescrud.controller';
+import { createRecord, deleteRecord, selectRecordAll, selectRecordFilter, updateRecord } from '../../controllers/compras/proveedorescrud.controller';
 
 const router = Router();
 
@@ -70,14 +70,13 @@ router.post("/api/trazaoc", inserttrazaOC);
 
 //proveedores
 router.get("/api/proveedores", allproveedores);
+router.get('/api/proveedores/consultar', selectRecordAll);
+router.get('/api/proveedores/filtrar/:Id/:nombre/:rif/:direccion/:valoracion/:telefono/:observaciones/:contacto', selectRecordFilter);
 router.get("/api/proveedores/:idProvee", oneproveedor);
 
-
-router.get('/consultar', SelectRecordAll);
-router.get('/filtrar/:Id/:nombre/:rif/:direccion/:valoracion/:telefono/:observaciones/:contacto', SelectRecordFilter);
-router.post('/insertar', createRecord);
-router.put('/actualizar/:IdRec', updateRecord);
-router.delete('/eliminar/:IdRec', deleteRecord);
+router.post('/api/proveedores/insertar/', createRecord);
+router.put('/api/proveedores/actualizar/:IdRec', updateRecord);
+router.delete('/api/proveedores/eliminar/:IdRec', deleteRecord);
 
 // router.post("/api/proveedores", insertarProveedor);
 //router.get("/api/tree", todosAlmacenesArbol);
