@@ -74,7 +74,7 @@ router.get('/api/proveedores/consultar', selectRecordAll);
 router.get('/api/proveedores/filtrar/:Id/:nombre/:rif/:direccion/:valoracion/:telefono/:observaciones/:contacto', selectRecordFilter);
 router.get("/api/proveedores/:idProvee", oneproveedor);
 
-router.post('/api/proveedores/insertar/', createRecord);
+router.post('/api/proveedores/insertar', createRecord);
 router.put('/api/proveedores/actualizar/:IdRec', updateRecord);
 router.delete('/api/proveedores/eliminar/:IdRec', deleteRecord);
 

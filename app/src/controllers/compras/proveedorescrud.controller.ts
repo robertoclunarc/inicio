@@ -3,7 +3,7 @@ import db from "../../database";
 import { IProveedores } from "../../interface/proveedorescrud.interface"
 
 export const selectRecordAll = async (req: Request, resp: Response) => {
-    let consulta = "SELECT * FROM compras_proveedores where estatus=1";
+    let consulta = "SELECT * FROM compras_proveedores where estatus=1 ORDER BY idProveedor DESC";
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
