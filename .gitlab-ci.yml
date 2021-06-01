@@ -29,7 +29,7 @@ build:
 register_image:
     stage: containerization
     variables:
-        SHA: $CI_COMMIT_SHA
+        SHA: $CI_COMMIT_SHORT_SHA
     script:
         - docker tag n_compras $DOCKER_SERVER/n_compras:$SHA
         - docker tag n_compras $DOCKER_SERVER/n_compras:latest
