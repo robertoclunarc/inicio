@@ -59,12 +59,10 @@ deploy_to_desarrollo:
 deploy_to_prod:
     stage: deploy
     script:
-        #- docker pull $DOCKER_SERVER/$CI_PROJECT_NAME:latest
+        - docker pull $DOCKER_SERVER/$CI_PROJECT_NAME:latest
         - docker stop $CI_PROJECT_NAME && docker rm $CI_PROJECT_NAME
-        - docker stop node_compras-test && docker rm node_compras-test
-        - docker run -d --name node_compras-test -p $APP_PORT:$APP_PORT -e MYSQL_SERVER=$PROD_MYSQL_SERVER \
-            -e MYSQL_USER=$DESA_MYSQL_USER -e MYSQL_PW=$DESA_MYSQL_PASS -e MYSQL_DB=$DESA_MYSQL_DB \ 
-            -e MYSQL_PORT=$DESA_MYSQL_PORT -e APP_PORT=$APP_PORT --restart always $DOCKER_SERVER/$CI_PROJECT_NAME
+        #- docker stop node_compras-test && docker rm node_compras-test
+        - docker run -d --name $CI_PROJECT_NAME -p $APP_PORT:$APP_PORT -e MYSQL_SERVER=$PROD_MYSQL_SERVER -e MYSQL_USER=$DESA_MYSQL_USER -e MYSQL_PW=$DESA_MYSQL_PASS -e MYSQL_DB=$DESA_MYSQL_DB -e MYSQL_PORT=$DESA_MYSQL_PORT -e APP_PORT=$APP_PORT --restart always $DOCKER_SERVER/$CI_PROJECT_NAME
     only:
         - master
     when: manual
