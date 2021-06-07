@@ -23,7 +23,7 @@ install_dependencies:
 build:
     stage: build
     script:
-        - docker build -t n_compras .
+        - docker build -t $CI_PROJECT_NAME .
         #- docker image rm my-registry/my-application
 
 register_image:
@@ -31,10 +31,15 @@ register_image:
     variables:
         SHA: $CI_COMMIT_SHORT_SHA
     script:
-        - docker tag n_compras $DOCKER_SERVER/n_compras:$SHA
-        - docker tag n_compras $DOCKER_SERVER/n_compras:latest
-        - docker push $DOCKER_SERVER/n_compras:$SHA
-        - docker push $DOCKER_SERVER/n_compras:latest
+        # - docker tag n_compras $DOCKER_SERVER/n_compras:$SHA
+        # - docker tag n_compras $DOCKER_SERVER/n_compras:latest
+        # - docker push $DOCKER_SERVER/n_compras:$SHA
+        # - docker push $DOCKER_SERVER/n_compras:latest
+        - docker tag $CI_PROJECT_NAME $DOCKER_SERVER/$CI_PROJECT_NAME:$SHA
+        - docker tag $CI_PROJECT_NAME $DOCKER_SERVER/$CI_PROJECT_NAME:latest
+        - docker push $DOCKER_SERVER/$CI_PROJECT_NAME:$SHA
+        - docker push $DOCKER_SERVER/$CI_PROJECT_NAME:latest
+
     only:
         - master
 # -------------
@@ -67,7 +72,8 @@ deploy_to_prod:
         MYSQL_PORT: $DESA_MYSQL_PORT
         APP_PORT: $APP_PORT
     script:
-        - echo $PROD_MYSQL_SERVER
+        #- echo $PROD_MYSQL_SERVER
+        - docker pull $DOCKER_SERVER/$CI_PROJECT_NAME:latest
         - docker-compose down
         - docker-compose up -d --build
     only:
