@@ -41,7 +41,7 @@ deploy_to_desarrollo:
         MYSQL_PORT: $DESA_MYSQL_PORT
         APP_PORT: $APP_PORT
     script: 
-        - echo $APP_PORT 
+        #- echo $APP_PORT 
         - docker-compose down 
         - docker-compose up -d --build
     only:
