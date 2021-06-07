@@ -29,22 +29,6 @@ containerization:
         #- docker push my-registry/my-application
         # Cleanup by removing the local image
         #- docker image rm my-registry/my-application
-<<<<<<< Updated upstream
-=======
-
-register_image:
-    stage: containerization
-    variables:
-        SHA: $CI_COMMIT_SHORT_SHA
-    script:
-        - docker tag $CI_PROJECT_NAME $DOCKER_SERVER/$CI_PROJECT_NAME:$SHA
-        - docker tag $CI_PROJECT_NAME $DOCKER_SERVER/$CI_PROJECT_NAME:latest
-        - docker push $DOCKER_SERVER/$CI_PROJECT_NAME:$SHA
-        - docker push $DOCKER_SERVER/$CI_PROJECT_NAME:latest
-
-    only:
-        - master
->>>>>>> Stashed changes
 # -------------
 
 deploy_to_desarrollo:
@@ -74,16 +58,9 @@ deploy_to_prod:
         MYSQL_DB: $DESA_MYSQL_DB
         MYSQL_PORT: $DESA_MYSQL_PORT
         APP_PORT: $APP_PORT
-<<<<<<< Updated upstream
     script: 
         - echo $PROD_MYSQL_SERVER 
         - docker-compose down 
-=======
-    script:
-        #- echo $PROD_MYSQL_SERVER
-        - docker pull $DOCKER_SERVER/$CI_PROJECT_NAME:latest
-        - docker-compose down
->>>>>>> Stashed changes
         - docker-compose up -d --build
     only:
         - master
