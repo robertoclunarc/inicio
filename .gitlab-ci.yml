@@ -75,7 +75,7 @@ deploy_to_prod:
         #- echo $PROD_MYSQL_SERVER
         - docker pull $DOCKER_SERVER/$CI_PROJECT_NAME:latest
         - docker-compose down
-        - docker-compose up -d -f docker-compose-prod.yml
+        - docker-compose up -f docker-compose-prod.yml -d --force-recreate
     only:
         - master
     when: manual
