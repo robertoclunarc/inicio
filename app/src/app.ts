@@ -20,6 +20,7 @@ app.set("port", process.env.APP_PORT);
 
 //middlewares
 app.use(morgan("dev"));
+
 app.use(express.json());
 const wl = process.env.WHITE_LIST?.split(",");
 // console.log("Whitelist: ", wl);
@@ -40,5 +41,5 @@ app.listen(app.get("port"), () => { console.log("Server express on port:", app.g
 
 
 app.get("/", (req, resp) => {
-	resp.send("Server http ON!");
+	resp.send("Server http ON last!!!");
 });

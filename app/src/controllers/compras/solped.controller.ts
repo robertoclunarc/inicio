@@ -14,7 +14,7 @@ export const solpedAll = async (req: Request, resp: Response) => {
                                                 AS nombre_empresa_facturar
                                         FROM compras_solped sol
                                             WHERE (idEstadoActual >= 4 AND idEstadoActual <= 12)`); //OR (idEstadoActual = 14)
-    resp.status(201).json(solpeds);
+    resp.status(200).json(solpeds);
 }
 
 export const solpedAllOc = async (req: Request, resp: Response) => {
