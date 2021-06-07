@@ -6,7 +6,7 @@ services:
         build: 
             context: .
         
-        container_name: node-compras
+        container_name: $CI_PROJECT_NAME
         restart: always
         ports:   
             - $APP_PORT:$APP_PORT
