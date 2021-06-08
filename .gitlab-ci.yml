@@ -36,7 +36,7 @@ register_image:
 
     only:
         - master
-# -------------
+# ------------- 
 
 deploy_to_desarrollo:
     stage: deploy
