@@ -16,13 +16,15 @@ export default interface solpeddetalleModelo {
 	idAreaTrabajo? : number, 
 	cant_encontrada? : number, 
 	precio? : number, 
+	precio_usd?: number,
 	idProveedor? : number, 
 	notas? :string,
 	cant_recibida? : number,
 	tasa_iva?: number,
 	precio_iva?: number,
 	subtotal?: number,
-	precio_usd?: number,
-	estado?: any, //{ "proceso": 0, "aprobado": 1, "anulado": 2 }
 	precio_usd_sutotal? : number,
+	precio_neto? :number,
+	precio_neto_usd? :number,
+	estado?: any, //{ "proceso": 0, "aprobado": 1, "anulado": 2 }
 }
