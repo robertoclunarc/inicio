@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import db from "../../database";
 import detalleOcModelo from "../../interface/detalleoc";
 import ocModelo from "../../interface/ordencompra";
-import { join } from "path";
+// import { join } from "path";
 
 
 export const todasOC = async (req: Request, resp: Response) => {
@@ -10,10 +10,18 @@ export const todasOC = async (req: Request, resp: Response) => {
                             (SELECT nombre FROM adm_activos activos WHERE activos.idAdmActivo = oc.idAdmActivo) AS nombre_activo,
                             (SELECT nombre FROM compras_proveedores c WHERE c.idProveedor = oc.idProveedor) AS nombre_proveedor,
                             (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = oc.idComprasEmpresa) 
-                            AS nombre_empresa_facturar
+                            AS nombre_empresa_facturar,
+                            (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
+                                                    WHERE u.idSegUsuario = oc.idSegUsuario) nombre_asignado
                      FROM compras_oc oc ORDER BY oc.idComprasOC DESC`;
-    const ordenes: ocModelo[] = await db.querySelect(consulta);
-    resp.status(200).json(ordenes);
+    try {
+        const ordenes: ocModelo[] = await db.querySelect(consulta);
+        resp.status(200).json(ordenes);
+    } catch (error) {
+        console.error(error);
+        return resp.status(400).json(error);
+    }
+   
 }
 
 export const detalleOneOC = async (req: Request, resp: Response) => {
@@ -31,7 +39,9 @@ export const getOneOC = async (req: Request, resp: Response) => {
                             (SELECT nombre FROM compras_proveedores c WHERE c.idProveedor = oc.idProveedor) AS nombre_proveedor,
                             (SELECT CONCAT(CONCAT(c.primerNombre, ' '), c.primerApellido) FROM seg_usuarios c WHERE c.idSegUsuario = oc.idUsuarioAprobo) AS nombre_aprobo,
                             (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = oc.idComprasEmpresa) AS nombre_empresa_facturar, 
-                            (SELECT nombre FROM config_gerencias WHERE idConfigGerencia = oc.idConfigGerencia) AS nombre_gerencia
+                            (SELECT nombre FROM config_gerencias WHERE idConfigGerencia = oc.idConfigGerencia) AS nombre_gerencia,
+                            (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
+                                                    WHERE u.idSegUsuario = oc.idSegUsuario) nombre_asignado
                     FROM compras_oc as oc WHERE idComprasOC = ?`;
     try{
         const ordenes: ocModelo[] = await db.querySelect(consulta, [id]);

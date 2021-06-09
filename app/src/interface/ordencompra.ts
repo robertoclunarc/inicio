@@ -20,4 +20,5 @@ export default interface OrdenCompraModelo {
 	estadoActual?: string,
 	justificacion? : string,
 	correlativo? : string,
+	idSegUsuario? : number,
 }

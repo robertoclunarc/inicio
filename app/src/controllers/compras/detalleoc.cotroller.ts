@@ -4,7 +4,8 @@ import detalleModelo from "../../interface/detalleoc";
 
 export const detalleOcAll = async (req: Request, resp: Response) => {
     const idOc = req.params.idComprasOC;
-    let consulta = "SELECT * FROM compras_oc_detalle WHERE idComprasOC = ?";
+    let consulta = `SELECT  detoc.*
+                     FROM compras_oc_detalle detoc WHERE detoc.idComprasOC = ?`;
     const detalles: detalleModelo[] = await db.querySelect(consulta, [idOc]);
     //return detalles;
     resp.json(detalles);
