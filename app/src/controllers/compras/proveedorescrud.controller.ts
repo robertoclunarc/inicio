@@ -6,9 +6,9 @@ export const selectRecordAll = async (req: Request, resp: Response) => {
     let consulta = "SELECT * FROM compras_proveedores where estatus=1 ORDER BY idProveedor DESC";
     try {
         const result = await db.querySelect(consulta);
-        if (result.length <= 0) {
-            return resp.status(402).json({ msg: "No Data!" });
-        }
+        // if (result.length <= 0) {
+        //     return resp.status(402).json({ msg: "No Data!" });
+        // }
 
         return resp.status(201).json(result);
 
