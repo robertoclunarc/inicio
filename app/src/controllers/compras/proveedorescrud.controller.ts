@@ -96,7 +96,7 @@ export const createRecord = async (req: Request, resp: Response) => {
     const ExpReg = /-/g;
     newPost.rif = newPost.rif.replace(ExpReg, '');
     newPost.rif = newPost.rif.toUpperCase();
-    console.log(newPost.rif);
+    // console.log(newPost.rif);
     let result = await db.querySelect("Select * FROM compras_proveedores where rif=?", [newPost.rif]);
     if (result.length > 0) {
         return resp.status(402).json({ msg: "El Rif Ya Existe" });
