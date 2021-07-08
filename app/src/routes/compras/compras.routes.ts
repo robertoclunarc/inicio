@@ -6,6 +6,7 @@ import {
     misSolped,
     solpedCambioFase, solpedPresidencia, solpedAllOc, solpedDetalleOne, updateMontoTotal, solpedEmpresaAAfacturar,
     aprobacionSolPed,
+    solpedOneTicket,
 } from "../../controllers/compras/solped.controller";
 
 
@@ -27,6 +28,7 @@ router.post("/api/solped", solpedNew);
 router.put("/api/solped/:idSolped", updateSolped);
 // router.post("/api/notinueva", solpedNew);
 router.get("/api/solped/:idSolped", solpedOne);
+router.get("/api/solpedticket/{idTicket}", solpedOneTicket);
 router.get("/api/solped/:idSolped/detalles", solpedDetalleOne);
 router.get("/api/solpedydetalles", solpedMasterDetalle);
 router.put("/api/asignacionsolped/:idSolped", solpedAsignacion);

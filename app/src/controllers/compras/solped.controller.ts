@@ -29,6 +29,20 @@ export const solpedAllOc = async (req: Request, resp: Response) => {
     resp.status(201).json(solpeds);
 }
 
+export const solpedOneTicket = async (req: Request, resp: Response) => {
+    //"SELECT * FROM compras_solped WHERE idTicketServicio = $id";
+    let idTicket: number = req.body.idTicket;
+    try {
+        const solpeds = await db.querySelect(`SELECT * FROM compras_solped WHERE idTicketServicio = ?`, [idTicket]);
+        resp.status(201).json(solpeds);
+
+    } catch (error) {
+        console.log(error);
+        resp.status(401).json(error);
+
+    }
+}
+
 
 export const misSolped = async (req: Request, resp: Response) => {
     const usuario = req.params.idSegUsuario;
@@ -47,7 +61,7 @@ export const solpedNew = async (req: Request, resp: Response) => {
     const newSolped: solpedModelo = req.body;
     try {
         const result = await db.querySelect("INSERT INTO compras_solped SET ? ", [newSolped]);
-        const newSolpedCreated : solpedModelo[] = await db.querySelect("SELECT * FROM compras_solped WHERE idSolpedCompras = ?", [result.insertId]);
+        const newSolpedCreated: solpedModelo[] = await db.querySelect("SELECT * FROM compras_solped WHERE idSolpedCompras = ?", [result.insertId]);
         resp.status(201).json(newSolpedCreated[0]);
     } catch (err) {
         resp.status(401).json({ err: err });
