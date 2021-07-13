@@ -83,6 +83,29 @@ export const solpedOne = async (req: Request, resp: Response) => {
 }
 
 
+export const solpedAndTicket = async (req: Request, resp: Response) => {
+    const id = req.params.idSolped;
+    try {
+        const solpeds :solpedModelo[] = await db.querySelect(`SELECT sol.*,
+                                            (SELECT nombre FROM config_gerencias ger WHERE ger.idConfigGerencia = sol.idConfigGerencia) nombre_gerencia,
+                                            (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
+                                            WHERE u.idSegUsuario = sol.idSegUsuario) nombre_asignado,
+                                            (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = sol.idEmpresa) 
+                                            AS nombre_empresa_facturar
+                                            FROM compras_solped sol WHERE idSolpedCompras = ? `, [id]);
+        //TODO: anexar los datos del ticket
+        //HACERLO CON EL NUEVO BACK DE ns-ts-servicio
+        for (const solped of solpeds) {
+            solped.ticket = {};
+        }
+        resp.status(201).json(solpeds[0]);
+        
+    } catch (error) {
+        console.log(error);
+        resp.status(401).json(error);
+    }
+}
+
 export const solpedDetalleOne = async (req: Request, resp: Response) => {
     const id = req.params.idSolped;
     const solpeds = await db.querySelect(`SELECT * FROM compras_detalle_solped sol WHERE idSolpedCompras = ? `, [id]);

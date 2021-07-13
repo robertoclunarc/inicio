@@ -19,4 +19,6 @@ export default interface solped {
 	fecha_aprobo_presi?: any,
 	formas_envio?: string,
 	condiciones?: string,
+
+	ticket? : any
 }
