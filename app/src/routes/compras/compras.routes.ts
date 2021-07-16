@@ -10,7 +10,7 @@ import {
 } from "../../controllers/compras/solped.controller";
 
 
-import { solpedetalledata, cambioEstado, delDetallesSolped, insertDetalleSolped, updateGenerado, getTotalDetallesNoProcess, updateDetalle }
+import { solpedetalledata, cambioEstado, delDetallesSolped, insertDetalleSolped, updateGenerado, getTotalDetallesNoProcess, updateDetalle, solpedetalledatatodos }
     from "../../controllers/compras/solpeddetalle.controller";
 import { trazassolped, inserttrazasolped, inserttrazaOC } from "../../controllers/compras/solpedtraza.controller";
 import {
@@ -44,6 +44,7 @@ router.get("/api/solspresidencia", solpedPresidencia);
 
 //Solped Detalles
 router.get("/api/detallesolped/:idSolped", solpedetalledata);
+router.get("/api/detallesolpedtodos/:idSolped", solpedetalledatatodos);
 router.get("/api/total-det-noprocess/:idSolped", getTotalDetallesNoProcess);
 router.post("/api/detallesolped/", insertDetalleSolped);
 router.put("/api/detallesolped/", cambioEstado);
