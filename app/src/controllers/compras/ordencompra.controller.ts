@@ -24,6 +24,48 @@ export const todasOC = async (req: Request, resp: Response) => {
    
 }
 
+export const todasOcActivas = async (req: Request, resp: Response) => {
+    let consulta = `SELECT  oc.*,
+                            (SELECT nombre FROM adm_activos activos WHERE activos.idAdmActivo = oc.idAdmActivo) AS nombre_activo,
+                            (SELECT nombre FROM compras_proveedores c WHERE c.idProveedor = oc.idProveedor) AS nombre_proveedor,
+                            (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = oc.idComprasEmpresa) 
+                            AS nombre_empresa_facturar,
+                            (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
+                                                    WHERE u.idSegUsuario = oc.idSegUsuario) nombre_asignado
+                     FROM compras_oc oc 
+                     WHERE oc.idEstado NOT IN (1, 4, 7, 8)
+                     ORDER BY oc.idComprasOC DESC`;
+    try {
+        const ordenes: ocModelo[] = await db.querySelect(consulta);
+        resp.status(200).json(ordenes);
+    } catch (error) {
+        console.error(error);
+        return resp.status(400).json(error);
+    }
+   
+}
+
+export const todasOcHistoricas = async (req: Request, resp: Response) => {
+    let consulta = `SELECT  oc.*,
+                            (SELECT nombre FROM adm_activos activos WHERE activos.idAdmActivo = oc.idAdmActivo) AS nombre_activo,
+                            (SELECT nombre FROM compras_proveedores c WHERE c.idProveedor = oc.idProveedor) AS nombre_proveedor,
+                            (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = oc.idComprasEmpresa) 
+                            AS nombre_empresa_facturar,
+                            (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
+                                                    WHERE u.idSegUsuario = oc.idSegUsuario) nombre_asignado
+                     FROM compras_oc oc 
+                     WHERE oc.idEstado IN (4, 7, 8)
+                     ORDER BY oc.idComprasOC DESC`;
+    try {
+        const ordenes: ocModelo[] = await db.querySelect(consulta);
+        resp.status(200).json(ordenes);
+    } catch (error) {
+        console.error(error);
+        return resp.status(400).json(error);
+    }
+   
+}
+
 export const detalleOneOC = async (req: Request, resp: Response) => {
     const id = req.params.idComprasOC;
     let consulta = "SELECT * FROM compras_oc_detalle WHERE idComprasOC = ?";

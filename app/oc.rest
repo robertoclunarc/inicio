@@ -1,0 +1,5 @@
+###
+GET http://localhost:3005/api/oc/activas/
+
+###
+GET http://localhost:3005/api/oc/estados/3

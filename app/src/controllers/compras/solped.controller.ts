@@ -29,6 +29,20 @@ export const solpedAllOc = async (req: Request, resp: Response) => {
     resp.status(201).json(solpeds);
 }
 
+export const solpedOneTicket = async (req: Request, resp: Response) => {
+    //"SELECT * FROM compras_solped WHERE idTicketServicio = $id";
+    let idTicket: number = req.body.idTicket;
+    try {
+        const solpeds = await db.querySelect(`SELECT * FROM compras_solped WHERE idTicketServicio = ?`, [idTicket]);
+        resp.status(201).json(solpeds);
+
+    } catch (error) {
+        console.log(error);
+        resp.status(401).json(error);
+
+    }
+}
+
 
 export const misSolped = async (req: Request, resp: Response) => {
     const usuario = req.params.idSegUsuario;
@@ -47,7 +61,8 @@ export const solpedNew = async (req: Request, resp: Response) => {
     const newSolped: solpedModelo = req.body;
     try {
         const result = await db.querySelect("INSERT INTO compras_solped SET ? ", [newSolped]);
-        resp.status(201).json(result);
+        const newSolpedCreated: solpedModelo[] = await db.querySelect("SELECT * FROM compras_solped WHERE idSolpedCompras = ?", [result.insertId]);
+        resp.status(201).json(newSolpedCreated[0]);
     } catch (err) {
         resp.status(401).json({ err: err });
     }
@@ -67,6 +82,29 @@ export const solpedOne = async (req: Request, resp: Response) => {
     resp.status(201).json(solpeds[0]);
 }
 
+
+export const solpedAndTicket = async (req: Request, resp: Response) => {
+    const id = req.params.idSolped;
+    try {
+        const solpeds :solpedModelo[] = await db.querySelect(`SELECT sol.*,
+                                            (SELECT nombre FROM config_gerencias ger WHERE ger.idConfigGerencia = sol.idConfigGerencia) nombre_gerencia,
+                                            (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
+                                            WHERE u.idSegUsuario = sol.idSegUsuario) nombre_asignado,
+                                            (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = sol.idEmpresa) 
+                                            AS nombre_empresa_facturar
+                                            FROM compras_solped sol WHERE idSolpedCompras = ? `, [id]);
+        //TODO: anexar los datos del ticket
+        //HACERLO CON EL NUEVO BACK DE ns-ts-servicio
+        for (const solped of solpeds) {
+            solped.ticket = {};
+        }
+        resp.status(201).json(solpeds[0]);
+        
+    } catch (error) {
+        console.log(error);
+        resp.status(401).json(error);
+    }
+}
 
 export const solpedDetalleOne = async (req: Request, resp: Response) => {
     const id = req.params.idSolped;
