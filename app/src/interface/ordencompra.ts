@@ -21,4 +21,7 @@ export default interface OrdenCompraModelo {
 	justificacion? : string,
 	correlativo? : string,
 	idSegUsuario? : number,
+	idGenCentroCostos? : number,
+	nombre_cc? : string,
+
 }
