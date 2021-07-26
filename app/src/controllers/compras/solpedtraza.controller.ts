@@ -22,14 +22,3 @@ export const inserttrazasolped = async (req: Request, resp: Response) => {
     }
 }
 
-export const inserttrazaOC = async (req: Request, resp: Response) => {
-    const itraza: TrazaOc = req.body;
-    let consulta = "INSERT INTO compras_trazas_oc SET ?";
-    try {
-        const result = await db.querySelect(consulta, [itraza]);
-        resp.status(201).json(result);
-    } catch (error) {
-        console.log(error);
-        resp.json({ "Error": error });
-    }
-}

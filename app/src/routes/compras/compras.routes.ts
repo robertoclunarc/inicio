@@ -12,16 +12,17 @@ import {
 
 import { solpedetalledata, cambioEstado, delDetallesSolped, insertDetalleSolped, updateGenerado, getTotalDetallesNoProcess, updateDetalle, solpedetalledatatodos }
     from "../../controllers/compras/solpeddetalle.controller";
-import { trazassolped, inserttrazasolped, inserttrazaOC } from "../../controllers/compras/solpedtraza.controller";
+import { trazassolped, inserttrazasolped } from "../../controllers/compras/solpedtraza.controller";
 import {
     insertOC, updateOC, todasOC, todasMasterDetalle, detalleOneOC, todasOcActivas,
-    getOneOC, updateMontoTotalOrdenCompra, updateCorrelativo, generarOcPDF, obtenerEstadoActSig
+    getOneOC, updateMontoTotalOrdenCompra, updateCorrelativo, generarOcPDF, obtenerEstadoActSig, ocHistoricos
 }
     from "../../controllers/compras/ordencompra.controller";
 import { insertdetalleOC, detalleOcAll } from "../../controllers/compras/detalleoc.cotroller";
 import { allproveedores, oneproveedor, todosAlmacenesArbol } from "../../controllers/compras/proveedores.controller";
 import { createRecord, deleteRecord, selectRecordAll, selectRecordFilter, updateRecord } from '../../controllers/compras/proveedorescrud.controller';
 import { estadosModCompras } from "../../controllers/compras/estados-oc.controller"
+import {  allTrazasPorOC, inserttrazaOC } from '../../controllers/compras/trazas-oc.controller';
 const router = Router();
 
 router.get("/api/solped", solpedAll);
@@ -65,6 +66,7 @@ router.get("/api/ocmasterdetalle/", todasMasterDetalle);
 router.get("/api/oc/:idComprasOC/detalles", detalleOneOC);
 router.get("/api/oc/:idComprasOC", getOneOC);
 router.get("/api/oc/estados-actual-sig/:idComprasOC", obtenerEstadoActSig);
+router.get("/api/oc/historico", ocHistoricos);
 router.put("/api/oc/update-monto/:idComprasOC", updateMontoTotalOrdenCompra);
 router.put("/api/oc/update-correlativo/:idComprasOC", updateCorrelativo);
 router.post("/api/oc/generar-oc/:idComprasOC", generarOcPDF);
@@ -73,8 +75,9 @@ router.post("/api/oc/generar-oc/:idComprasOC", generarOcPDF);
 router.get("/api/ocdetalle", detalleOcAll);
 router.post("/api/ocdetalle", insertdetalleOC);
 router.put("/api/ocdetalle/update-por-tasa/:idDetalleOC", updatePorCambioTasa);
-//TrazasOC FIXME:Debe ser su propio controller, pero para mas rapidez, refactorizar 
+//trazas de la OC
 router.post("/api/trazaoc", inserttrazaOC);
+router.get("/api/trazaoc/:idComprasOC", allTrazasPorOC);
 
 //estados
 router.get("/api/oc/estados/:idEstado", estadosModCompras);
