@@ -15,7 +15,7 @@ import { solpedetalledata, cambioEstado, delDetallesSolped, insertDetalleSolped,
 import { trazassolped, inserttrazasolped } from "../../controllers/compras/solpedtraza.controller";
 import {
     insertOC, updateOC, todasOC, todasMasterDetalle, detalleOneOC, todasOcActivas,
-    getOneOC, updateMontoTotalOrdenCompra, updateCorrelativo, generarOcPDF, obtenerEstadoActSig, ocHistoricos
+    getOneOC, updateMontoTotalOrdenCompra, updateCorrelativo, obtenerEstadoActSig, ocHistoricos, todasOcHistoricas
 }
     from "../../controllers/compras/ordencompra.controller";
 import { insertdetalleOC, detalleOcAll } from "../../controllers/compras/detalleoc.cotroller";
@@ -66,10 +66,12 @@ router.get("/api/ocmasterdetalle/", todasMasterDetalle);
 router.get("/api/oc/:idComprasOC/detalles", detalleOneOC);
 router.get("/api/oc/:idComprasOC", getOneOC);
 router.get("/api/oc/estados-actual-sig/:idComprasOC", obtenerEstadoActSig);
-router.get("/api/oc/historico", ocHistoricos);
+router.get("/api/oc/historico/oc", todasOcHistoricas);
+// router.get("/api/aa/h", todasOcHistoricas);
+
 router.put("/api/oc/update-monto/:idComprasOC", updateMontoTotalOrdenCompra);
 router.put("/api/oc/update-correlativo/:idComprasOC", updateCorrelativo);
-router.post("/api/oc/generar-oc/:idComprasOC", generarOcPDF);
+// router.post("/api/oc/generar-oc/:idComprasOC", generarOcPDF);
 
 //Orden de compra detalle
 router.get("/api/ocdetalle", detalleOcAll);
