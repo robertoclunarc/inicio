@@ -1,9 +1,16 @@
 ###
 GET http://localhost:3005/api/oc/activas/
 ###
-GET http://localhost:3005/api/oc/estados-actual-sig/3
+GET http://localhost:3005/api/oc/estados-actual-sig/18
 ###
 GET http://localhost:3005/api/oc/
 
 ###
 GET http://localhost:3005/api/oc/estados/3
+
+###
+GET http://localhost:3005/api/trazaoc/2
+###
+GET http://localhost:3005/api/oc/historico/
+###
+GET http://10.10.0.7:3005/api/trazaoc/2

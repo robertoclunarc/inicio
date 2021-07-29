@@ -1,4 +1,4 @@
-import { Request, response, Response } from "express";
+import { Request, Response } from "express";
 import db from "../../database";
 import detalleOcModelo from "../../interface/detalleoc";
 import EstadosOc from "../../interface/estados-oc";
@@ -40,10 +40,34 @@ export const todasOcActivas = async (req: Request, resp: Response) => {
                             (SELECT descripcion FROM gen_centro_costos u
                                                         WHERE u.idGenCentroCostos = oc.idGenCentroCostos) nombre_cc
                      FROM compras_oc oc 
-                     WHERE oc.idEstado NOT IN (1, 4, 7, 8)
+                     WHERE oc.idEstado NOT IN (1, 2, 4, 8)
                      ORDER BY oc.idComprasOC DESC`;
     try {
         const ordenes: ocModelo[] = await db.querySelect(consulta);
+        resp.status(200).json(ordenes);
+    } catch (error) {
+        console.error(error);
+        return resp.status(400).json(error);
+    }
+
+}
+
+
+export const ocHistoricos = async (req: Request, resp: Response) => {
+    let consulta = `SELECT  oc.*,
+                            (SELECT nombre FROM adm_activos activos WHERE activos.idAdmActivo = oc.idAdmActivo) AS nombre_activo,
+                            (SELECT nombre FROM compras_proveedores c WHERE c.idProveedor = oc.idProveedor) AS nombre_proveedor,
+                            (SELECT nombre_empresa FROM compras_empresa em WHERE em.idComprasEmpresa = oc.idComprasEmpresa) 
+                            AS nombre_empresa_facturar,
+                            (SELECT CONCAT(u.primerNombre, ' ', u.primerApellido) FROM seg_usuarios u
+                                                    WHERE u.idSegUsuario = oc.idSegUsuario) nombre_asignado,
+                            (SELECT descripcion FROM gen_centro_costos u
+                                                        WHERE u.idGenCentroCostos = oc.idGenCentroCostos) nombre_cc
+                     FROM compras_oc oc 
+                     
+                     ORDER BY oc.idComprasOC DESC`;
+    try {
+        const ordenes: ocModelo[] = []; //await db.querySelect(consulta);
         resp.status(200).json(ordenes);
     } catch (error) {
         console.error(error);
@@ -67,6 +91,7 @@ export const todasOcHistoricas = async (req: Request, resp: Response) => {
                      ORDER BY oc.idComprasOC DESC`;
     try {
         const ordenes: ocModelo[] = await db.querySelect(consulta);
+        // let ordenes: number[] = [1, 2, 3];
         resp.status(200).json(ordenes);
     } catch (error) {
         console.error(error);
@@ -194,40 +219,4 @@ export const updateCorrelativo = async (req: Request, resp: Response) => {
         console.log(error);
         return resp.status(400).json(error);
     }
-}
-
-
-export const generarOcPDF = (req: Request, res: Response) => {
-
-    // const fs = require('fs');
-    // const carbone = require('carbone');
-    // const idOc: number = +req.params.idComprasOC;
-    // console.log(join(__dirname, "/../../public/ocs"));
-    // return res.status(201).json({});
-
-    // let data = {
-    //     firstname: 'Yamil',
-    //     lastname: 'Hola mundo'
-    // };
-
-    // var options = {
-    //     convertTo: 'pdf' //can be docx, txt, ...
-    // };
-
-
-    // npm html-pdf
-    // var html = fs.readFileSync('./test/businesscard.html', 'utf8');
-    // Read file
-    // const file = fs.readFileSync(enterPath);
-
-    // carbone.render(join(__dirname, `/../../public/ocs/simple.odt`), data, function (err: any, result: any) {
-    //     if (err) return console.log(err);
-
-    //     // write the result
-    //     fs.writeFileSync(join(__dirname, `/../../public/ocs/result.odt`), result);
-    //     process.exit();
-    // });
-
-
-    return res.status(200).json({ messaje: "ok" });
 }
