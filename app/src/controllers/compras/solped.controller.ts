@@ -44,6 +44,21 @@ export const solpedOneTicket = async (req: Request, resp: Response) => {
 }
 
 
+export const solpedOneTicketv2 = async (req: Request, resp: Response) => {
+    //"SELECT * FROM compras_solped WHERE idTicketServicio = $id";
+    let idTicket: number = +req.params.idTicket;
+    try {
+        const solpeds = await db.querySelect(`SELECT * FROM compras_solped WHERE idTicketServicio = ?`, [idTicket]);
+        resp.status(201).json(solpeds);
+
+    } catch (error) {
+        console.log(error);
+        resp.status(401).json(error);
+
+    }
+}
+
+
 export const misSolped = async (req: Request, resp: Response) => {
     const usuario = req.params.idSegUsuario;
     const solpeds = await db.querySelect(`SELECT  sol.*,
