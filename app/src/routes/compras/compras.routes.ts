@@ -1,3 +1,4 @@
+import { solpedOneTicketv2 } from './../../controllers/compras/solped.controller';
 import { updatePorCambioTasa, updateDetOC } from './../../controllers/compras/detalleoc.cotroller';
 import { Router } from "express";
 import {
@@ -33,6 +34,7 @@ router.put("/api/solped/:idSolped", updateSolped);
 // router.post("/api/notinueva", solpedNew);
 router.get("/api/solped/:idSolped", solpedOne);
 router.get("/api/solpedticket/{idTicket}", solpedOneTicket);
+router.get("/api/solpedticket/v2/:idTicket", solpedOneTicketv2);
 router.get("/api/solped/:idSolped/detalles", solpedDetalleOne);
 router.get("/api/solpedydetalles", solpedMasterDetalle);
 router.put("/api/asignacionsolped/:idSolped", solpedAsignacion);
