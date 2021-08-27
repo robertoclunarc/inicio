@@ -1,4 +1,4 @@
-import { updatePorCambioTasa } from './../../controllers/compras/detalleoc.cotroller';
+import { updatePorCambioTasa, updateDetOC } from './../../controllers/compras/detalleoc.cotroller';
 import { Router } from "express";
 import {
     solpedAll, solpedNew, solpedOne, updateSolped, solpedMasterDetalle,
@@ -77,6 +77,7 @@ router.put("/api/oc/update-correlativo/:idComprasOC", updateCorrelativo);
 router.get("/api/ocdetalle", detalleOcAll);
 router.post("/api/ocdetalle", insertdetalleOC);
 router.put("/api/ocdetalle/update-por-tasa/:idDetalleOC", updatePorCambioTasa);
+router.put("/api/ocdetalle/:idDetalleOC", updateDetOC);
 //trazas de la OC
 router.post("/api/trazaoc", inserttrazaOC);
 router.get("/api/trazaoc/:idComprasOC", allTrazasPorOC);

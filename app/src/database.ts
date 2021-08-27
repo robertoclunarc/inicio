@@ -22,7 +22,7 @@ class database {
 
     constructor(){
         this.host = process.env.MYSQL_SERVER || "localhost";
-        this.pass = process.env.MYSQL_PW || ".4C3r04dm1n";
+        this.pass = process.env.MYSQL_PW || "";
         this.user = process.env.MYSQL_USER || "root";
         this.database = process.env.MYSQL_DB || "intranet";
     }
@@ -32,7 +32,7 @@ class database {
         this.cnn = await mysql.createPool({
             host: process.env.MYSQL_SERVER || "localhost", //
             user: process.env.MYSQL_USER || "root",
-            password: process.env.MYSQL_PW || ".4C3r04dm1n",
+            password: process.env.MYSQL_PW || "",
             database: process.env.MYSQL_DB || "intranet",
             connectTimeout: 10000,
             connectionLimit: 2
