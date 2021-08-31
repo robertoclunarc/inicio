@@ -1,6 +1,6 @@
 import { solpedOneTicketv2 } from './../../controllers/compras/solped.controller';
-import { updatePorCambioTasa } from './../../controllers/compras/detalleoc.cotroller';
-import { Router } from 'express';
+import { updatePorCambioTasa, updateDetOC } from './../../controllers/compras/detalleoc.cotroller';
+import { Router } from "express";
 import {
     solpedAll,
     solpedNew,
@@ -107,9 +107,10 @@ router.put('/api/oc/update-correlativo/:idComprasOC', updateCorrelativo);
 // router.post("/api/oc/generar-oc/:idComprasOC", generarOcPDF);
 
 //Orden de compra detalle
-router.get('/api/ocdetalle', detalleOcAll);
-router.post('/api/ocdetalle', insertdetalleOC);
-router.put('/api/ocdetalle/update-por-tasa/:idDetalleOC', updatePorCambioTasa);
+router.get("/api/ocdetalle", detalleOcAll);
+router.post("/api/ocdetalle", insertdetalleOC);
+router.put("/api/ocdetalle/update-por-tasa/:idDetalleOC", updatePorCambioTasa);
+router.put("/api/ocdetalle/:idDetalleOC", updateDetOC);
 //trazas de la OC
 router.post('/api/trazaoc', inserttrazaOC);
 router.get('/api/trazaoc/:idComprasOC', allTrazasPorOC);

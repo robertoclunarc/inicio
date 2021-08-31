@@ -79,3 +79,5 @@ get("/api/ocmasterdetalle/", todasMasterDetalle);
 get("/api/ocdetalle", detalleOcAll);
 # ingresar el detalle de una OC
 post("/api/ocdetalle", insertdetalleOC);
+# Actualizar el detalle de una OC
+put("/api/ocdetalle/:idDetalleOC", updateDetOC);
