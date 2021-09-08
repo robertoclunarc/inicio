@@ -37,4 +37,17 @@ export const updatePorCambioTasa = async (req: Request, resp: Response) => {
     }
 }
 
+export const updateDetOC = async (req: Request, resp: Response) => {
+    const updateDet: detalleModelo = req.body;
+    const id = req.params.idDetalleOC;
+    let consulta = "UPDATE compras_oc_detalle SET ? WHERE idOcDetalle = ? ";
+    try {
+        const result = await db.querySelect(consulta, [updateDet, id]);
+        resp.status(201).json(result);        
+    } catch (error) {
+        console.log(error);
+        return resp.status(400).json(error);
+    }
+}
+
 

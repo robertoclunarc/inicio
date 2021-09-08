@@ -32,7 +32,7 @@ class database {
     async conectarBD() {
 
         this.cnn = await mysql.createPool({
-            host: process.env.MYSQL_SERVER || "localhost", //
+            host: process.env.MYSQL_SERVER || "10.10.0.2", //
             user: process.env.MYSQL_USER || "root",
             password: process.env.MYSQL_PW || "",
             database: process.env.MYSQL_DB || "intranet",
