@@ -51,7 +51,6 @@ put("/api/cambiofasesolped", solpedCambioFase);
 # aprobacion de una solped a presidencia
 get("/api/solspresidencia", solpedPresidencia);
 
-
 # Solped Detalles
 # datos del detalle
 get("/api/detallesolped/:idSolped", solpedetalledata);
